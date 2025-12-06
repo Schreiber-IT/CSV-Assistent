@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 namespace CSVAssistent.Services.ErrorLog
 {
@@ -18,24 +16,25 @@ namespace CSVAssistent.Services.ErrorLog
         public void Info(string message, string? context = null)
         {
             ArgumentException.ThrowIfNullOrEmpty(context);
-            Write("INFO", message);
+            Write("INFO", message, context);
         }
 
         public void Warn(string message, string? context = null)
         {
             ArgumentException.ThrowIfNullOrEmpty(context);
-            Write("WARN", message);
+            Write("WARN", message, context);
         }
         public void Error(string message, Exception? ex = null, string? context = null)
         {
             ArgumentException.ThrowIfNullOrEmpty(context);
             var fullMessage = ex == null ? message : $"{message}{Environment.NewLine}{ex}";
-            Write("ERROR", fullMessage);
+            Write("ERROR", fullMessage, context);
         }
 
-        private void Write(string level, string message)
+        private void Write(string level, string message, string? context)
         {
-            var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{level}] {message}";
+            var contextSuffix = string.IsNullOrWhiteSpace(context) ? string.Empty : $" [{context}]";
+            var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{level}]{contextSuffix} {message}";
             Debug.WriteLine(line);
 
             try

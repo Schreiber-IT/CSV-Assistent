@@ -54,13 +54,13 @@ namespace CSVAssistent
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            ErrorService.HandleException(e.Exception, "Unerwarteter Fehler im UI-Thread", showToUser: true);
+            ErrorService?.HandleException(e.Exception, "Unerwarteter Fehler im UI-Thread", showToUser: true);
             e.Handled = true; // damit die App nicht abstürzt
         }
 
         private void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
         {
-            ErrorService.HandleException(e.Exception, "Unerwarteter Fehler in Hintergrund-Task", showToUser: true);
+            ErrorService?.HandleException(e.Exception, "Unerwarteter Fehler in Hintergrund-Task", showToUser: true);
             e.SetObserved();
         }
 
