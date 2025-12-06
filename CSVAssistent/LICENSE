@@ -1,0 +1,112 @@
+﻿Custom License – No Resale, Internal Commercial Use Only
+
+Copyright (c) 2025 Holger Schreiber. Alle Rechte vorbehalten.
+
+Individuelle Lizenz – Keine Weiterveräußerung, nur interne kommerzielle Nutzung
+
+Hinweis:
+Informationen zu verwendeten Drittanbieter-Komponenten und deren Lizenzen
+finden sich in der Datei "THIRD_PARTY_LICENSES.md". Die dort genannten
+Komponenten unterliegen ihren jeweiligen eigenen Lizenzen und sind nicht
+von der nachfolgenden Projekt-Hauptlizenz umfasst, soweit dort etwas
+Abweichendes geregelt ist.
+
+Notice:
+Information about third-party components and their licenses can be found
+in the file "THIRD_PARTY_LICENSES.md". Those components are governed by
+their own respective licenses and are not covered by the following main
+project license where those third-party terms state otherwise.
+
+Im Zweifel ist der deutsche Lizenztext maßgeblich. / In case of doubt,
+the German text shall prevail.
+
+1. Erlaubte Nutzung
+
+1.1. Es ist erlaubt, die Software CSV-Assistent und den dazugehörigen Quellcode
+    - zu installieren,
+    - zu nutzen und
+    - zu verändern
+
+    sowohl für private als auch für geschäftliche Zwecke, solange dies
+    ausschließlich innerhalb der eigenen Organisation / des eigenen Unternehmens erfolgt.
+
+1.2. Die Nutzung zur internen Unterstützung geschäftlicher Abläufe (z.B. im Unternehmen
+    als internes Tool) ist ausdrücklich erlaubt.
+
+2. Nicht erlaubte Nutzung
+
+2.1. Nicht erlaubt ist insbesondere ohne vorherige schriftliche Zustimmung des Rechteinhabers:
+    - der Verkauf, die Vermietung, das Leasing oder die Lizenzierung der Software
+      oder abgeleiteter Werke als eigenes Produkt,
+    - die Weitergabe der Software oder abgeleiteter Werke an Dritte,
+    - die Bereitstellung der Software als Dienstleistung („Software as a Service“) für Dritte,
+      wenn hierdurch direkt oder indirekt Einnahmen erzielt werden.
+
+2.2. Es ist nicht erlaubt, die Software oder Teile daraus unter eigenem Namen
+     als Produkt zu vertreiben oder damit kommerzielle Angebote für Dritte zu erstellen,
+     die auf der Software in ihrer ursprünglichen oder nur geringfügig geänderten Form beruhen.
+
+3. Urheberrecht / Copyright
+
+3.1. Das Urheberrecht an der Software verbleibt vollständig bei Holger Schreiber.
+
+3.2. Hinweise zum Urheberrecht und dieser Lizenz dürfen nicht entfernt werden.
+
+4. Haftungsausschluss / Gewährleistung
+
+DIE SOFTWARE WIRD „WIE BESEHEN“ („AS IS“) BEREITGESTELLT, OHNE JEGLICHE
+AUSDRÜCKLICHE ODER STILLSCHWEIGENDE GEWÄHRLEISTUNG, EINSCHLIESSLICH,
+ABER NICHT BESCHRÄNKT AUF DIE GEWÄHRLEISTUNG DER MARKTGÄNGIGKEIT,
+EIGNUNG FÜR EINEN BESTIMMTEN ZWECK UND NICHTVERLETZUNG VON RECHTEN DRITTER.
+
+IN KEINEM FALL HAFTET DER RECHTEINHABER FÜR SCHÄDEN JEGLICHER ART,
+EINSCHLIESSLICH DIREKTER, INDIREKTER, ZUFÄLLIGER ODER FOLGESCHÄDEN
+ODER SCHÄDEN AUS ENTGANGENEM GEWINN, NUTZUNGSAUSFALL ODER DATENVERLUST,
+DIE AUS DER NUTZUNG ODER UNMÖGLICHKEIT DER NUTZUNG DER SOFTWARE ENTSTEHEN,
+SELBST WENN AUF DIE MÖGLICHKEIT SOLCHER SCHÄDEN HINGEWIESEN WURDE.
+
+------------------------------------------------------------
+English (informative translation)
+------------------------------------------------------------
+
+Custom License – No Resale, Internal Commercial Use Only
+
+Copyright (c) 2025 Holger Schreiber. All rights reserved.
+
+1. Permitted Use
+
+1.1. You are allowed to install, use and modify the software CSV-Assistent
+     and its source code for private and commercial purposes, as long as this use
+     takes place solely within your own organization/company.
+
+1.2. Using the software as an internal tool to support business processes
+     is explicitly permitted.
+
+2. Prohibited Use
+
+2.1. Without prior written permission of the copyright holder, it is not allowed to:
+     - sell, rent, lease or license the software or derivative works as your own product,
+     - distribute the software or derivative works to third parties,
+     - provide the software as a service (“Software as a Service”) to third parties
+       in a way that directly or indirectly generates revenue.
+
+2.2. You may not market the software or parts of it as your own product or offer
+     commercial services for third parties that are based on the software in its
+     original or only slightly modified form.
+
+3. Copyright
+
+3.1. Copyright in the software remains entirely with Holger Schreiber.
+
+3.2. Copyright notices and this license text must not be removed.
+
+4. Disclaimer of Warranty and Liability
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.

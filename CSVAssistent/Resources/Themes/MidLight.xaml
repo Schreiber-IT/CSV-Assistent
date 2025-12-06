@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="Theme.Id">MidLight</sys:String>
+
+
+    <!-- SystemCommandIcons -->
+    <SolidColorBrush x:Key="Brush.CommandExit"                  Color="#FFFF5F57"/>
+    <SolidColorBrush x:Key="Brush.CommandMinimize"              Color="#FFFFBD2E"/>
+    <SolidColorBrush x:Key="Brush.CommandMaximize"              Color="#FF28C840"/>
+
+    <!-- CommandBar -->
+    <SolidColorBrush x:Key="Brush.BackgroundCommandBar"         Color="#FF111827"/>
+    <SolidColorBrush x:Key="Brush.ForegroundCommandBar"         Color="#FF94A3B8"/>
+
+    <!-- Root -->
+    <SolidColorBrush x:Key="Brush.Background"                   Color="#FFE5EAF1"/>
+    <SolidColorBrush x:Key="Brush.Foreground"                   Color="#FF0F172A"/>
+
+    <!-- ScrollBar -->
+    <SolidColorBrush x:Key="Brush.ScrollBar"                    Color="#FF334155"/>
+
+    <!-- Buttons -->
+    <SolidColorBrush x:Key="Brush.BackgroundButton"             Color="#FFCBD5E1"/>
+    <SolidColorBrush x:Key="Brush.ForegroundButton"             Color="#FF0B1220"/>
+    <SolidColorBrush x:Key="Brush.ImageButton"                  Color="#FFF8FAFC"/>
+    <SolidColorBrush x:Key="Brush.ButtonShadow"                 Color="#FFF8FAFC"/>
+    <SolidColorBrush x:Key="Brush.ButtonShadowPress"            Color="#FF000000"/>
+    <SolidColorBrush x:Key="Brush.ButtonCategoryA"              Color="#FF8FBC8F"/>
+    <SolidColorBrush x:Key="Brush.ButtonCategoryB"              Color="#CCFF8C00"/>
+    <SolidColorBrush x:Key="Brush.ButtonCategoryC"              Color="#FFE9967A"/>
+    <SolidColorBrush x:Key="Brush.ButtonCategoryD"              Color="#FF6495ED"/>
+    <SolidColorBrush x:Key="Brush.ButtonCategoryE"              Color="#FFFFEC49"/>
+    <SolidColorBrush x:Key="Brush.ButtonCategoryF"              Color="#FF28C840"/>
+    <SolidColorBrush x:Key="Brush.Assignment"                   Color="#FF6495ED"/>
+
+    <!-- FileWindow -->
+    <SolidColorBrush x:Key="Brush.FileWindowBackground"         Color="#FFE5EAF1"/>
+    <SolidColorBrush x:Key="Brush.FileWindowForeground"         Color="#FF000000"/>
+    <SolidColorBrush x:Key="Brush.FileWindowHeaderBackground"   Color="#FF6495ED"/>
+
+    <!-- halbtransparente Border -->
+    <SolidColorBrush x:Key="Brush.BorderSoft"                   Color="#1F0B1220"/>
+
+    <!-- Thememanager -->
+    <SolidColorBrush x:Key="Brush.CommandTheme"                 Color="#FF334155"/>
+
+    <!-- Toolbar -->
+    <SolidColorBrush x:Key="Brush.BackgroundToolBar"            Color="#FF2A3647"/>
+    <SolidColorBrush x:Key="Brush.ForegroundToolBar"            Color="#FF888888"/>
+
+    <!-- Window Border -->
+    <SolidColorBrush x:Key="Brush.WindowBorder"                 Color="#FF000000"/>
+    <SolidColorBrush x:Key="Brush.WindowBorderShadow"           Color="#FF000000"/>
+
+    <Color x:Key="Color.SettingsBorder">#FF000000</Color>
+    <SolidColorBrush x:Key="Brush.SettingsBorder" Color="{StaticResource Color.SettingsBorder}"/>
+    <Color x:Key="Color.FileInfoBorder">#FF000000</Color>
+    <SolidColorBrush x:Key="Brush.FileInfoBorder" Color="{StaticResource Color.FileInfoBorder}"/>
+    <Color x:Key="Color.AssignmentBorder">#FF000000</Color>
+    <SolidColorBrush x:Key="Brush.AssignmentBorder" Color="{StaticResource Color.AssignmentBorder}"/>
+</ResourceDictionary>

@@ -1,0 +1,296 @@
+﻿<core:BaseWindow x:Class="CSVAssistent.View.Assignment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CSVAssistent.View"
+        xmlns:sys="clr-namespace:System.Windows;assembly=PresentationFramework"
+        xmlns:core="clr-namespace:CSVAssistent.Core"
+        xmlns:vm="clr-namespace:CSVAssistent.ViewModel"
+        mc:Ignorable="d"
+        Background="Transparent"
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="400" MinWidth="400"
+        StateChanged="Window_StateChanged"
+        Title="Assignment" Height="450" Width="800">
+    <Border CornerRadius="25 25 15 15" Background="{DynamicResource Brush.Background}" Margin="5">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="5" ShadowDepth="0" Opacity="0.9" Color="{DynamicResource Color.AssignmentBorder}"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+
+            <!--Commandbereich-->
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Height="35" Background="{DynamicResource Brush.BackgroundCommandBar}" BorderBrush="Black" BorderThickness="1" CornerRadius="15 15 0 0" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseDown="Border_MouseDown">
+                <DockPanel LastChildFill="True" VerticalAlignment="Center" Margin="10,0,0,0">
+                    <!-- Rechts: Buttons nebeneinander -->
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                        <Border CornerRadius="15" Background="{DynamicResource Brush.CommandMinimize}" Width="22" Height="22" BorderThickness="1" BorderBrush="Black" Margin="0,0,10,0">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Effect" Value="{x:Null}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTMinimize}" Value="True">
+                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Button x:Name="BTMinimize" Width="16" Height="16" Command="{x:Static sys:SystemCommands.MinimizeWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
+                                <Image Source="pack://application:,,,/Images/minimize.png"/>
+                            </Button>
+                        </Border>
+                        <Border CornerRadius="15"
+        Background="{DynamicResource Brush.CommandMaximize}"
+        Width="22"
+        Height="22"
+        BorderThickness="1"
+        BorderBrush="Black"
+        Margin="0,0,10,0">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Effect" Value="{x:Null}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTMaximize}"
+                             Value="True">
+                                            <Setter Property="Effect"
+                            Value="{StaticResource PillShadowPressed}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                            <Button x:Name="BTMaximize"
+            Width="16"
+            Height="16"
+            Background="Transparent"
+            BorderThickness="0">
+                                <Button.Style>
+                                    <Style TargetType="Button"
+                   BasedOn="{StaticResource NoHoverIconButton}">
+                                        <!-- Standard: Fenster normal → Maximize -->
+                                        <Setter Property="Command"
+                        Value="{x:Static sys:SystemCommands.MaximizeWindowCommand}" />
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <Image Source="pack://application:,,,/Images/maximize.png" />
+                                            </Setter.Value>
+                                        </Setter>
+
+                                        <Style.Triggers>
+                                            <!-- Wenn Fenster maximiert → Restore -->
+                                            <DataTrigger
+                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                                          Path=WindowState}"
+                        Value="Maximized">
+                                                <Setter Property="Command"
+                                Value="{x:Static sys:SystemCommands.RestoreWindowCommand}" />
+                                                <!-- Optional: anderes Icon im maximierten Zustand -->
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <Image Source="pack://application:,,,/Images/maximize.png" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Border>
+
+
+                        <Border CornerRadius="15" Background="{DynamicResource Brush.CommandExit}" Width="22" Height="22" BorderThickness="1" BorderBrush="Black" Margin="0,0,10,0">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Effect" Value="{x:Null}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTClose}" Value="True">
+                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Button x:Name="BTClose" Width="16" Height="16" Command="{x:Static sys:SystemCommands.CloseWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
+                                <Image Source="pack://application:,,,/Images/close.png"/>
+                            </Button>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Links: füllt den gesamten restlichen Platz -->
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                        <Image Source="pack://application:,,,/Images/code.png" Width="20" Height="20" VerticalAlignment="Center"/>
+                        <TextBlock Text="Assignment" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource Brush.ForegroundCommandBar}"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!--Toolbar-->
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="{DynamicResource Brush.BackgroundToolBar}" BorderBrush="Black" BorderThickness="0" Padding="5 0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding LoadAssignmentsCommand}" x:Name="BTLoadJson" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ImageButton}" HorizontalAlignment="Left">
+                        <Button.ToolTip>Zuweisung Laden</Button.ToolTip>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Effect" Value="{x:Null}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTLoadJson}" Value="True">
+                                        <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="pack://application:,,,/Images/folder_open.png"/>
+                        </Button.OpacityMask>
+                    </Button>
+                    <Button Command="{Binding SaveAssignmentsCommand}" x:Name="BTSaveJson" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ImageButton}" HorizontalAlignment="Left">
+                        <Button.ToolTip>Zuweisung speichern</Button.ToolTip>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Effect" Value="{x:Null}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTSaveJson}" Value="True">
+                                        <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="pack://application:,,,/Images/savefile.png"/>
+                        </Button.OpacityMask>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <!-- Hauptbereich -->
+            <Border Grid.Row="2" Grid.Column="0" Margin="0">
+                <Grid x:Name="GrZuweisung" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="0 0 0 10">
+                        <TextBlock Text="Zentrale Spaltenzuweisung" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource Brush.Foreground}"/>
+                        <TextBlock Text="Weise die Spalten der aktiven Datei den zentralen Zielspalten zu. Die Zuordnung ist optional." Margin="0 5 0 0" Foreground="{DynamicResource Brush.Foreground}"/>
+                        <TextBlock Text="{Binding SelectedFileName, StringFormat=Aktive Datei: {0}}" Foreground="{DynamicResource Brush.Foreground}" FontWeight="SemiBold" Margin="0 5 0 0" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 10" VerticalAlignment="Center">
+                        <TextBox Width="250" Height="30" 
+                                 Margin="0 0 10 0" Padding="5" 
+                                 Text="{Binding NewTargetColumnName, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="Neue Zielspalte" 
+                                 Foreground="{DynamicResource Brush.ForegroundCommandBar}"
+                                 Background="{DynamicResource Brush.BackgroundToolBar}"
+                                 KeyDown="TextBox_KeyDown"/>
+                        <Border CornerRadius="15"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource Brush.BorderSoft}"
+                                Background="{DynamicResource Brush.BackgroundButton}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="black" BlurRadius="5" ShadowDepth="2" Opacity="0.8"/>
+                            </Border.Effect>
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Effect" Value="{x:Null}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTAddRow}" Value="True">
+                                            <Setter Property="Background" Value="red"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Button Width="auto" Height="30"
+                                    Padding="10 5"
+                                    x:Name="BTAddRow"
+                                    BorderThickness="0"
+                                    Foreground="{DynamicResource Brush.ForegroundButton}" 
+                                    Background="Transparent"
+                                    Style="{StaticResource NoHoverIconButton}"
+                                    Command="{Binding AddMappingCommand}"
+                                    Content="Neue Spalte hinzufügen">
+                            </Button>
+                        </Border>
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="2"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding Mappings}"
+                              CanUserAddRows="False"
+                              HeadersVisibility="Column"
+                              RowBackground="{DynamicResource Brush.FileWindowBackground}"
+                              AlternatingRowBackground="{DynamicResource Brush.FileWindowBackground}"
+                              Background="{DynamicResource Brush.FileWindowBackground}"
+                              Foreground="{DynamicResource Brush.FileWindowForeground}"
+                              BorderThickness="1"
+                              BorderBrush="{DynamicResource Brush.ForegroundCommandBar}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Zentrale Spalte" Binding="{Binding TargetColumn, UpdateSourceTrigger=PropertyChanged}" Width="*" Foreground="{DynamicResource Brush.FileWindowForeground}"/>
+                            <DataGridTemplateColumn Header="Spalte der Datei" Width="2*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding DataContext.AvailableColumnsWithEmpty, RelativeSource={RelativeSource AncestorType={x:Type local:Assignment}}}"
+                                                  SelectedValuePath="Index"
+                                                  SelectedValue="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  MinWidth="150">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="Text" Value="{Binding Name}" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Name}" Value="">
+                                                                        <Setter Property="Text" Value="(Keine Zuordnung)" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <!-- Footer -->
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="0 1 0 0" BorderBrush="black" Background="{DynamicResource Brush.BackgroundCommandBar}" CornerRadius="0 0 10 10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="transparent">
+                        <Label x:Name="footer1" Foreground="White"/>
+                    </Border>
+                    <Border Grid.Column="1" Background="transparent">
+                        <Label x:Name="footer2" Foreground="White"/>
+                    </Border>
+                    <Border Grid.Column="2" Background="transparent">
+                        <Label x:Name="footer3" Foreground="White" />
+                    </Border>
+                    <Border Grid.Column="3" Background="transparent">
+                        <Label x:Name="footer4" Foreground="White"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</core:BaseWindow>

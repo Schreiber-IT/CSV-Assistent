@@ -1,0 +1,151 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\dotgreen.png" />
+    <None Remove="Images\dotred.png" />
+    <None Remove="Images\folder_open.png" />
+    <None Remove="Images\loadfile.png" />
+    <None Remove="Images\logoimg.png" />
+    <None Remove="Images\savefile.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.21" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3595.46" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\account.png" />
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\code.png" />
+    <Resource Include="Images\deletefile.png" />
+    <Resource Include="Images\deletelist.png" />
+    <Resource Include="Images\dotgreen.png" />
+    <Resource Include="Images\dotred.png" />
+    <Resource Include="Images\errorinfo.png" />
+    <Resource Include="Images\export.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\file.png" />
+    <Resource Include="Images\fileinfo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\folder.png" />
+    <Resource Include="Images\folder_open.png" />
+    <Resource Include="Images\help.png" />
+    <Resource Include="Images\info.png" />
+    <Resource Include="Images\loadfile.png" />
+    <Resource Include="Images\logoimg.png" />
+    <Resource Include="Images\maximize.png" />
+    <Resource Include="Images\minimize.png" />
+    <Resource Include="Images\palette.png" />
+    <Resource Include="Images\savefile.png" />
+    <Resource Include="Images\scan.png" />
+    <Resource Include="Images\searchend.png" />
+    <Resource Include="Images\settings.png" />
+    <Resource Include="Images\zuordnung.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\Pages\AppSettings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Pages\ErrorList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\SettingsDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Documentation\images\deletefile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\deletelist.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\dotgreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\dotred.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\errorinfo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\export.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\file.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\fileinfo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\filesearch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\folder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\folder_open.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\help.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\info.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\loadfile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\palette.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\savefile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\scan.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\searchend.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\settings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\images\zuordnung.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\Readme.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\Readme_de.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\Readme_en.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <style>
+        body {
+            background: #111827;
+            color: #94A3B8;
+        }
+        ul li {
+            list-style: none;
+            margin: 10px 0;
+        }
+        ul li img {
+            height: 36px;
+            width: 36px;
+            margin: 0 10px;
+        }
+        .menuitems {
+            border: 1px solid #ebdf98;
+            box-shadow: 5px 5px 10px black;
+            margin: 15px;
+            border-radius: 10px;
+        }
+        .info {
+            border: 1px solid #ebdf98;
+            box-shadow: 5px 5px 10px black;
+            margin: 15px;
+            border-radius: 10px;
+            white-space: pre-line;
+            padding: 10px;
+            color: white;
+            line-height: 24px;
+            font-size: 18px;
+        }
+        .info h1 {
+            font-size: 25px;
+            color: burlywood;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="menuitems">
+        <ul>
+            <li><img src="images/file.png" /> <span>Load a file</span></li>
+            <li><img src="images/folder.png" /> <span>Load all files from a folder</span></li>
+            <li><img src="images/fileinfo.png" /> <span>View and search the file contents in table form</span></li>
+            <li><img src="images/zuordnung.png" /> <span>Create central columns and map the columns of the selected file</span></li>
+            <li><img src="images/deletefile.png" /> <span>Remove a file from the list</span></li>
+            <li><img src="images/deletelist.png" /> <span>Clear the entire list</span></li>
+            <li><img src="images/scan.png" /> <span>Check all files to see if they can be exported</span></li>
+            <li><img src="images/settings.png" /> <span>App settings</span></li>
+            <li><img src="images/errorinfo.png" /> <span>Error list: All app errors are listed here with more detailed information</span></li>
+            <li><img src="images/help.png" /> <span>Help</span></li>
+            <li><img src="images/info.png" /> <span>Info about the app and the developer</span></li>
+            <li><img src="images/searchend.png" /> <span>End the search function, reset the view</span></li>
+            <li><img src="images/savefile.png" /> <span>Save the mapping data; it contains the central columns and the columns already assigned for individual files</span></li>
+            <li><img src="images/folder_open.png" /> <span>Open a mapping file; it contains the central columns and the columns already assigned for individual files</span></li>
+            <li><img src="images/palette.png" /> <span>Change the theme; you can switch between "Light", "MidLight" and "Dark"</span></li>
+        </ul>
+    </div>
+    <div class="info"><h1>CSV-Assistent</h1>
+        With this app, you can quickly and easily manage your CSV files and prepare them for export.
+        You load one or more CSV files, and they are clearly displayed in a table.
+        This allows you to view the contents directly and search for specific entries or terms.
+
+        For exporting, you first create a custom target list – in other words, the columns that your new CSV file should have.
+        For each loaded file, you can then map the columns of the original file to the columns of your target list.
+        This way, you can precisely define which data goes where, and then export everything as a new, consistent CSV file.
+
+        If all files already have the same format (the same columns), it’s even easier:
+        in that case, you can export them directly without any additional mapping.
+
+        The app helps you load, search, and standardize multiple CSV files and conveniently export them as a new, uniform CSV file.
+    </div>
+</body>
+</html>
