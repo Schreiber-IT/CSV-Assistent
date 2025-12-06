@@ -75,12 +75,12 @@
                             </Button>
                         </Border>
                         <Border CornerRadius="15"
-        Background="{DynamicResource Brush.CommandMaximize}"
-        Width="22"
-        Height="22"
-        BorderThickness="1"
-        BorderBrush="Black"
-        Margin="0,0,10,0">
+                                Background="{DynamicResource Brush.CommandMaximize}"
+                                Width="22"
+                                Height="22"
+                                BorderThickness="1"
+                                BorderBrush="Black"
+                                Margin="0,0,10,0">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Setter Property="Effect" Value="{x:Null}" />
@@ -95,16 +95,15 @@
                             </Border.Style>
 
                             <Button x:Name="BTMaximize"
-            Width="16"
-            Height="16"
-            Background="Transparent"
-            BorderThickness="0">
+                                    Width="16"
+                                    Height="16"
+                                    Background="Transparent"
+                                    BorderThickness="0">
                                 <Button.Style>
                                     <Style TargetType="Button"
-                   BasedOn="{StaticResource NoHoverIconButton}">
+                                        BasedOn="{StaticResource NoHoverIconButton}">
                                         <!-- Standard: Fenster normal → Maximize -->
-                                        <Setter Property="Command"
-                        Value="{x:Static sys:SystemCommands.MaximizeWindowCommand}" />
+                                        <Setter Property="Command" Value="{x:Static sys:SystemCommands.MaximizeWindowCommand}" />
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <Image Source="pack://application:,,,/Images/maximize.png" />
@@ -113,12 +112,11 @@
 
                                         <Style.Triggers>
                                             <!-- Wenn Fenster maximiert → Restore -->
-                                            <DataTrigger
-                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Window},
-                                          Path=WindowState}"
-                        Value="Maximized">
+                                            <DataTrigger 
+                                                Binding="{Binding RelativeSource={RelativeSource AncestorType=Window},Path=WindowState}"
+                                                Value="Maximized">
                                                 <Setter Property="Command"
-                                Value="{x:Static sys:SystemCommands.RestoreWindowCommand}" />
+                                                    Value="{x:Static sys:SystemCommands.RestoreWindowCommand}" />
                                                 <!-- Optional: anderes Icon im maximierten Zustand -->
                                                 <Setter Property="Content">
                                                     <Setter.Value>
