@@ -99,7 +99,7 @@ namespace CSVAssistent.ViewModel
 
             _assignmentViewModel = new AssignmentViewModel();
 
-            SearchCommand = new RelayCommand(_ => FilteredRows.Refresh());
+            SearchCommand = new RelayCommand(_ => FilteredRows?.Refresh());
             ResetSearchCommand = new RelayCommand(_ => ResetSearch());
             SortCommand = new RelayCommand(column => ApplySort(column as string), column => column is string);
             OpenAssignmentCommand = new RelayCommand(_ => OpenAssignment());

@@ -631,7 +631,7 @@ namespace CSVAssistent.ViewModel
                 var file = SelectedFile;
                 if (file == null) return;
 
-                if (SelectedFile.Lines > 100000)
+                if (file.Lines > 100000)
                 {
                     FooterInfo = "Große Datei wird geladen!";
                 }
