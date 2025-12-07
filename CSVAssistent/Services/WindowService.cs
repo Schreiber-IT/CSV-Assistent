@@ -18,6 +18,7 @@ namespace CSVAssistent.Services
             Register<HelpViewModel, View.Help>(singleInstance: true);
             Register<FileInfoViewModel, View.FileInfo>(singleInstance: true);
             Register<AssignmentViewModel, View.Assignment>(singleInstance: true);
+            Register<SplitViewModel, View.Split>(singleInstance: true);
         }
 
         public void Register<TViewModel, TWindow>(bool singleInstance)

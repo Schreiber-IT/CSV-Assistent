@@ -37,6 +37,7 @@ namespace CSVAssistent.ViewModel
         private readonly HelpViewModel _helpViewModel;
         private readonly FileInfoViewModel _fileInfoViewModel;
         private readonly AssignmentViewModel _assignmentViewModel;
+        private readonly SplitViewModel _splitViewModel;
 
 
         public ObservableCollection<FileEntry> Files { get; } = new();
@@ -144,6 +145,8 @@ namespace CSVAssistent.ViewModel
 
             _fileInfoViewModel = new FileInfoViewModel();
             OpenFileInfoCommand = new RelayCommand(_ => ShowFileInfo(), _ => SelectedFile != null);
+
+            _splitViewModel = new SplitViewModel();
             SplitFileCommand = new RelayCommand(_ => SplitFile(), _ => SelectedFile != null);
             
             _assignmentViewModel = new AssignmentViewModel(_assignmentService);
@@ -172,8 +175,8 @@ namespace CSVAssistent.ViewModel
             {
                 var file = SelectedFile;
                 if (file == null) return;
-                // var splitViewModel = new SplitFileViewModel(file);
-                // _windowService.ShowDialog(splitViewModel);
+                _splitViewModel.Load(file);
+                _windowService.ShowDialog(_splitViewModel);
                 ScanAllFiles();
             }
             catch (Exception ex)
