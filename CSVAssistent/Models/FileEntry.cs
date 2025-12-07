@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization; // Neu hinzufügen
 using System.Runtime.CompilerServices;
 
 namespace CSVAssistent.Models
@@ -12,6 +13,10 @@ namespace CSVAssistent.Models
         private int _status = 0; // 0 = nicht zugewiesen, 1 = zugewiesen
 
         public long Lines { get; set; }
+        
+        // Neue Property für formatierte Zeilenanzahl
+        public string FormattedLines => Lines.ToString("N0", new CultureInfo("de-DE"));
+
         public int Status
         {
             get => _status;

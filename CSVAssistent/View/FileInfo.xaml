@@ -260,10 +260,18 @@
             <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="0 1 0 0" BorderBrush="black" Background="{DynamicResource Brush.BackgroundCommandBar}" CornerRadius="0 0 10 10">
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" Background="transparent">
                         <Label x:Name="footer1" Foreground="White" Content="{Binding CsvFile.FullPath}" Margin="10 0"/>
+                    </Border>
+                    <Border Grid.Column="1" Background="transparent">
+                        <Label x:Name="footer2" Foreground="White" Content="Zeilen:" Margin="10 0" HorizontalAlignment="Center"/>
+                    </Border>
+                    <Border Grid.Column="2" Background="transparent">
+                        <Label x:Name="footer3" Foreground="White" Content="{Binding CsvFile.FormattedLines}" Margin="10 0"/>
                     </Border>
                 </Grid>
             </Border>

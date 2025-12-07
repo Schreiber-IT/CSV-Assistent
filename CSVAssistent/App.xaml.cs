@@ -19,7 +19,7 @@ namespace CSVAssistent
         public ILogService? LogService { get; private set; }
         public IUserNotificationService? NotificationService { get; private set; }
         public IErrorService? ErrorService { get; private set; }
-        public LiteDbSettingsService SettingsService { get; private set; }
+        public LiteDbSettingsService? SettingsService { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {

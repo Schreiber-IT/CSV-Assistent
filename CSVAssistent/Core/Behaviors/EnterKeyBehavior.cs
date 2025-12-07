@@ -49,7 +49,6 @@ namespace CSVAssistent.Core.Behaviors
             var tb = (System.Windows.Controls.TextBox)sender;
             var cmd = GetCommand(tb);
             var param = GetCommandParameter(tb);
-            System.Windows.MessageBox.Show(cmd.ToString() + "\n" + param.ToString());
             if (cmd?.CanExecute(param) == true)
             {
                 cmd.Execute(param);
