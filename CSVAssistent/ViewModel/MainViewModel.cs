@@ -53,6 +53,19 @@ namespace CSVAssistent.ViewModel
                 }
             }
         }
+        
+
+        private string? _footerInfo;
+        public string? FooterInfo
+        {
+            get => _footerInfo;
+            set
+            {
+                if (_footerInfo == value) return;
+                _footerInfo = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string? _activeTheme;
         public string? ActiveTheme
@@ -149,6 +162,43 @@ namespace CSVAssistent.ViewModel
             AddFolderCommand = new RelayCommand(_ => AddFolder());
 
             LoadSettings();
+        }
+
+        public static long CountLines(string path)
+        {
+            const int bufferSize = 1024 * 1024; // 1 MB-Buffer
+            byte[] buffer = new byte[bufferSize];
+
+            long lineCount = 0;
+            bool lastByteWasNewline = false;
+
+            var fileInfo = new FileInfo(path);
+            long fileLength = fileInfo.Length;
+
+            using (var stream = System.IO.File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                int bytesRead;
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    for (int i = 0; i < bytesRead; i++)
+                    {
+                        if (buffer[i] == (byte)'\n')
+                        {
+                            lineCount++;
+                        }
+                    }
+
+                    lastByteWasNewline = buffer[bytesRead - 1] == (byte)'\n';
+                }
+            }
+
+            // Falls die letzte Zeile nicht mit '\n' endet, noch eine Zeile dazuzählen
+            if (fileLength > 0 && !lastByteWasNewline)
+            {
+                lineCount++;
+            }
+
+            return lineCount;
         }
 
         private void ShowHelp()
@@ -530,11 +580,30 @@ namespace CSVAssistent.ViewModel
         {
             try
             {
+                var lines = CountLines(fullPath);
+                if (lines >= 100000)
+                {
+                    var result = System.Windows.MessageBox.Show(
+                $"Die Datei hat das 100.000 Zeilen Limit erreicht, aus \n" +
+                $"Performancegründen empfehlen wir die Dateien aufzusplitten! \n" +
+                $"Pfad: {fullPath}\n" +
+                $"Anzahl Zeilen: {lines}\n\n" +
+                $"Soll die Datei aufgesplittet werden ?",
+                "Achtung, 100.000 Zeilen Limit erreicht",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Information);
+                    if (result == MessageBoxResult.Yes)
+                    {
+
+                    }
+                }
                 if (Files.Any(f => f.FullPath == fullPath)) return;
                 Files.Add(new FileEntry
                 {
                     FullPath = fullPath,
-                    Name = Path.GetFileName(fullPath)
+                    Name = Path.GetFileName(fullPath),
+                    Lines = lines
+
                 });
             }
             catch (FileNotFoundException ex)
@@ -555,16 +624,21 @@ namespace CSVAssistent.ViewModel
             }
         }
 
-        private void ShowFileInfo()
+        private async void ShowFileInfo()
         {
             try
             {
                 var file = SelectedFile;
                 if (file == null) return;
 
-                _fileInfoViewModel.Load(file);
+                if (SelectedFile.Lines > 100000)
+                {
+                    FooterInfo = "Große Datei wird geladen!";
+                }
+                await _fileInfoViewModel.Load(file);
                 _windowService.Show(_fileInfoViewModel);
                 ScanAllFiles();
+                FooterInfo = "";
             }
             catch (Exception ex)
             {

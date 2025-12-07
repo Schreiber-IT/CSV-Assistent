@@ -31,8 +31,22 @@ namespace CSVAssistent.ViewModel
 
         public ObservableCollection<string> ColumnNames { get; } = new();
         public ObservableCollection<string> SearchColumns { get; } = new();
-        public ObservableCollection<CsvRow> Rows { get; } = new();
-        public ICollectionView FilteredRows { get; }
+
+        private ObservableCollection<CsvRow> _rows = new();
+        public ObservableCollection<CsvRow> Rows
+        {
+            get => _rows;
+            set
+            {
+                if (SetProperty(ref _rows, value))
+                {
+                    FilteredRows = CollectionViewSource.GetDefaultView(Rows);
+                    FilteredRows.Filter = FilterRows;
+                }
+            }
+        }
+
+        public ICollectionView FilteredRows { get; private set; }
 
         public RelayCommand SearchCommand { get; }
         public RelayCommand ResetSearchCommand { get; }
@@ -84,9 +98,6 @@ namespace CSVAssistent.ViewModel
             _dialogService = ServiceLocator.FileDialogService;
 
             _assignmentViewModel = new AssignmentViewModel();
-
-            FilteredRows = CollectionViewSource.GetDefaultView(Rows);
-            FilteredRows.Filter = FilterRows;
 
             SearchCommand = new RelayCommand(_ => FilteredRows.Refresh());
             ResetSearchCommand = new RelayCommand(_ => ResetSearch());
@@ -142,44 +153,61 @@ namespace CSVAssistent.ViewModel
                     isExpected: false);
             }
         }
-        public void Load(FileEntry file)
+        public async Task Load(FileEntry file)
         {
             CsvFile = file;
-            LoadCsvDynamic(file.FullPath);
+            await LoadCsvDynamic(file.FullPath);
         }
 
-        public void LoadCsvDynamic(string path)
+        private async Task LoadCsvDynamic(string path)
         {
             ColumnNames.Clear();
             SearchColumns.Clear();
-            Rows.Clear();
 
             if (!File.Exists(path)) return;
-            var lines = File.ReadAllLines(path);
-            if (lines.Length == 0) return;
 
-            var delimiter = CsvParsingHelper.DetectDelimiter(lines[0]);
-            var headers = CsvParsingHelper.SplitLine(lines[0], delimiter);
-            SearchColumns.Add(AllColumnsLabel);
-            foreach (var h in headers)
+            var parsedData = await Task.Run(() =>
             {
-                var header = string.IsNullOrWhiteSpace(h) ? $"Column{ColumnNames.Count}" : h;
-                ColumnNames.Add(header);
-                SearchColumns.Add(header);
-            }
+                var lines = File.ReadAllLines(path);
+                if (lines.Length == 0) return (new List<string>(), new List<CsvRow>());
+
+                var delimiter = CsvParsingHelper.DetectDelimiter(lines[0]);
+                var headers = CsvParsingHelper.SplitLine(lines[0], delimiter);
+
+                var columnNames = new List<string>();
+                foreach (var h in headers)
+                {
+                    var header = string.IsNullOrWhiteSpace(h) ? $"Column{columnNames.Count}" : h;
+                    columnNames.Add(header);
+                }
+
+                var rows = new List<CsvRow>();
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                    var parts = CsvParsingHelper.SplitLine(lines[i], delimiter);
+                    var dict = new Dictionary<string, string>();
+                    for (int c = 0; c < columnNames.Count; c++)
+                        dict[columnNames[c]] = c < parts.Count ? parts[c] : string.Empty;
+                    rows.Add(new CsvRow(dict));
+                }
+
+                return (columnNames, rows);
+            });
+
+            var (columnNames, rows) = parsedData;
+
+            foreach (var c in columnNames)
+                ColumnNames.Add(c);
+
+            SearchColumns.Add(AllColumnsLabel);
+            foreach (var h in columnNames)
+                SearchColumns.Add(h);
 
             SelectedSearchColumn = AllColumnsLabel;
             SearchTerm = string.Empty;
 
-            for (int i = 1; i < lines.Length; i++)
-            {
-                if (string.IsNullOrWhiteSpace(lines[i])) continue;
-                var parts = CsvParsingHelper.SplitLine(lines[i], delimiter);
-                var dict = new Dictionary<string, string>();
-                for (int c = 0; c < ColumnNames.Count; c++)
-                    dict[ColumnNames[c]] = c < parts.Count ? parts[c] : string.Empty;
-                Rows.Add(new CsvRow(dict));
-            }
+            Rows = new ObservableCollection<CsvRow>(rows);
 
             ApplySort(ColumnNames.FirstOrDefault());
             FilteredRows.Refresh();

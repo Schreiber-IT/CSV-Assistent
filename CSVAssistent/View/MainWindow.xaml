@@ -430,7 +430,7 @@
                         <Label x:Name="footer3" Foreground="White" />
                     </Border>
                     <Border Grid.Column="3" Background="transparent">
-                        <Label x:Name="footer4" Foreground="White"/>
+                        <Label x:Name="footer4" Foreground="IndianRed" FontWeight="Bold" Content="{Binding FooterInfo}"/>
                     </Border>
                 </Grid>
             </Border>

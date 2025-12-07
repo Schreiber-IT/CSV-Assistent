@@ -10,6 +10,8 @@ namespace CSVAssistent.Models
         public string FullPath { get; set; } = "";
 
         private int _status = 0; // 0 = nicht zugewiesen, 1 = zugewiesen
+
+        public long Lines { get; set; }
         public int Status
         {
             get => _status;
