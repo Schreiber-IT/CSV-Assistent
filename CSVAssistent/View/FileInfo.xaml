@@ -47,7 +47,7 @@
                                 </Style>
                             </Border.Style>
                             <Button x:Name="BTMinimize" Width="16" Height="16" Command="{x:Static sys:SystemCommands.MinimizeWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
-                                <Image Source="pack://application:,,,/Images/minimize.png"/>
+                                <Image Source="pack://application:,,,/Images/minimize.png" Cursor="Hand"/>
                             </Button>
                         </Border>
                         <Border CornerRadius="15"
@@ -74,7 +74,7 @@
             Width="16"
             Height="16"
             Background="Transparent"
-            BorderThickness="0">
+            BorderThickness="0" Cursor="Hand">
                                 <Button.Style>
                                     <Style TargetType="Button"
                    BasedOn="{StaticResource NoHoverIconButton}">
@@ -121,7 +121,7 @@
                                 </Style>
                             </Border.Style>
                             <Button x:Name="BTClose" Width="16" Height="16" Command="{x:Static sys:SystemCommands.CloseWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
-                                <Image Source="pack://application:,,,/Images/close.png"/>
+                                <Image Source="pack://application:,,,/Images/close.png" Cursor="Hand"/>
                             </Button>
                         </Border>
                     </StackPanel>
@@ -138,7 +138,7 @@
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="{DynamicResource Brush.BackgroundToolBar}" BorderBrush="Black" BorderThickness="0" Padding="5 0">
                 <StackPanel Orientation="Horizontal">
                     <!--Home-->
-                    <Button Command="{Binding OpenAssignmentCommand}" x:Name="BTAssignment" Width="30" Padding="25 5" Margin="30 5 0 5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left">
+                    <Button Command="{Binding OpenAssignmentCommand}" x:Name="BTAssignment" Width="30" Padding="25 5" Margin="30 5 0 5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left" Cursor="Hand">
                         <Button.ToolTip>Zuordnung zur Zentralen Tabelle</Button.ToolTip>
                         <Button.Style>
                             <Style TargetType="Button">
@@ -166,7 +166,7 @@
                         Background="{DynamicResource Brush.BackgroundToolBar}"
                         Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Button x:Name="BTResetSearch" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryC}" HorizontalAlignment="Left" Command="{Binding ResetSearchCommand}">
+                    <Button x:Name="BTResetSearch" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryC}" HorizontalAlignment="Left" Command="{Binding ResetSearchCommand}" Cursor="Hand">
                         <Button.ToolTip>Suche Zurücksetzen</Button.ToolTip>
                         <Button.Style>
                             <Style TargetType="Button">

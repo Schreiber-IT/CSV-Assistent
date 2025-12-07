@@ -46,7 +46,7 @@
                                 </Style>
                             </Border.Style>
                             <Button x:Name="BTClose" Width="16" Height="16" Command="{x:Static sys:SystemCommands.CloseWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
-                                <Image Source="pack://application:,,,/Images/close.png"/>
+                                <Image Source="pack://application:,,,/Images/close.png" Cursor="Hand"/>
                             </Button>
                         </Border>
                     </StackPanel>
@@ -76,7 +76,7 @@
                     <TextBlock Text="© 2025 Holger Schreiber. All rights reserved." FontSize="18" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
                     <TextBox Background="{DynamicResource Brush.FileWindowForeground}" Grid.Row="4" Text="{Binding LicenseFile}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5"/>
                     <Border CornerRadius="10" Grid.Row="6" Background="{DynamicResource Brush.BackgroundButton}" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20">
-                        <Button Content="OK" Command="{x:Static sys:SystemCommands.CloseWindowCommand}" Background="Transparent" BorderThickness="0" FontWeight="Bold" Foreground="{DynamicResource Brush.ForegroundButton}"/>
+                        <Button Content="OK" Command="{x:Static sys:SystemCommands.CloseWindowCommand}" Background="Transparent" BorderThickness="0" FontWeight="Bold" Foreground="{DynamicResource Brush.ForegroundButton}" Cursor="Hand"/>
                     </Border>
                 </Grid>
             </Border>

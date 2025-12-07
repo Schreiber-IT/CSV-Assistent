@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\cut.png" />
     <None Remove="Images\dotgreen.png" />
     <None Remove="Images\dotred.png" />
     <None Remove="Images\folder_open.png" />
@@ -28,9 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Documentation\cut.png" />
     <Resource Include="Images\account.png" />
     <Resource Include="Images\close.png" />
     <Resource Include="Images\code.png" />
+    <Resource Include="Images\cut.png" />
     <Resource Include="Images\deletefile.png" />
     <Resource Include="Images\deletelist.png" />
     <Resource Include="Images\dotgreen.png" />

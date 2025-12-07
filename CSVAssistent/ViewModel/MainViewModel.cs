@@ -119,7 +119,8 @@ namespace CSVAssistent.ViewModel
         public ICommand AddFilesDropCommand { get; }
         public ICommand OpenAssignmentCommand { get; }
         public ICommand HandleDoubleClickCommand { get; }
-
+        public ICommand SplitFileCommand { get; }
+        
         // Definitionen
         private string windowState = "MainWindowWindowState";
 
@@ -143,7 +144,8 @@ namespace CSVAssistent.ViewModel
 
             _fileInfoViewModel = new FileInfoViewModel();
             OpenFileInfoCommand = new RelayCommand(_ => ShowFileInfo(), _ => SelectedFile != null);
-
+            SplitFileCommand = new RelayCommand(_ => SplitFile(), _ => SelectedFile != null);
+            
             _assignmentViewModel = new AssignmentViewModel(_assignmentService);
             _assignmentViewModel.AssignmentsChanged += AssignmentViewModel_AssignmentsChanged;
             OpenAssignmentCommand = new RelayCommand(_ => OpenAssignment(), _ => Files.Count >= 0);
@@ -162,6 +164,26 @@ namespace CSVAssistent.ViewModel
             AddFolderCommand = new RelayCommand(_ => AddFolder());
 
             LoadSettings();
+        }
+
+        public void SplitFile()
+        {
+            try
+            {
+                var file = SelectedFile;
+                if (file == null) return;
+                // var splitViewModel = new SplitFileViewModel(file);
+                // _windowService.ShowDialog(splitViewModel);
+                ScanAllFiles();
+            }
+            catch (Exception ex)
+            {
+                _errorService.HandleException(
+                    ex,
+                    context: "SplitFile, MainWindow",
+                    showToUser: true,
+                    isExpected: false);
+            }
         }
 
         public static long CountLines(string path)
@@ -581,22 +603,6 @@ namespace CSVAssistent.ViewModel
             try
             {
                 var lines = CountLines(fullPath);
-                if (lines >= 100000)
-                {
-                    var result = System.Windows.MessageBox.Show(
-                $"Die Datei hat das 100.000 Zeilen Limit erreicht, aus \n" +
-                $"Performancegründen empfehlen wir die Dateien aufzusplitten! \n" +
-                $"Pfad: {fullPath}\n" +
-                $"Anzahl Zeilen: {lines}\n\n" +
-                $"Soll die Datei aufgesplittet werden ?",
-                "Achtung, 100.000 Zeilen Limit erreicht",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Information);
-                    if (result == MessageBoxResult.Yes)
-                    {
-
-                    }
-                }
                 if (Files.Any(f => f.FullPath == fullPath)) return;
                 Files.Add(new FileEntry
                 {
@@ -630,15 +636,30 @@ namespace CSVAssistent.ViewModel
             {
                 var file = SelectedFile;
                 if (file == null) return;
-
-                if (file.Lines > 100000)
+                var rowlimitString = _settingsService.GetString(AppSettingsViewModel.RowLimitKey, "100_000");
+                if (!int.TryParse(rowlimitString.Replace("_", ""), out var rowlimit))
                 {
-                    FooterInfo = "Große Datei wird geladen!";
+                    rowlimit = 100000;
                 }
-                await _fileInfoViewModel.Load(file);
-                _windowService.Show(_fileInfoViewModel);
-                ScanAllFiles();
-                FooterInfo = "";
+
+                if (file.Lines > rowlimit)
+                {
+                    var result = System.Windows.MessageBox.Show(
+                        $"Die Datei hat das {rowlimitString} Zeilen Limit erreicht, \n" +
+                        $"um einen Programmabsturz zu verhindern können wir das ganze leider nicht mehr anzeigen, \n" +
+                        $"das zuweisen und exportieren funktioniert weiterhin!\n\n" +
+                        $"Nutzen sie die Split-Funktion um die Datei in kleinere Dateien zu splitten",
+                        $"Achtung, {rowlimitString} Zeilen Limit erreicht",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    return;
+                } else {
+                    FooterInfo = "Datei wird geladen!";
+                    await _fileInfoViewModel.Load(file);
+                    _windowService.Show(_fileInfoViewModel);
+                    ScanAllFiles();
+                    FooterInfo = "";
+                }
             }
             catch (Exception ex)
             {

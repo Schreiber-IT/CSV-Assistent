@@ -62,7 +62,7 @@
             Width="16"
             Height="16"
             Background="Transparent"
-            BorderThickness="0">
+            BorderThickness="0" Cursor="Hand">
                                 <Button.Style>
                                     <Style TargetType="Button"
                    BasedOn="{StaticResource NoHoverIconButton}">
@@ -109,7 +109,7 @@
                                 </Style>
                             </Border.Style>
                             <Button x:Name="BTClose" Width="16" Height="16" Command="{x:Static sys:SystemCommands.CloseWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
-                                <Image Source="pack://application:,,,/Images/close.png"/>
+                                <Image Source="pack://application:,,,/Images/close.png" Cursor="Hand"/>
                             </Button>
                         </Border>
                     </StackPanel>
@@ -126,7 +126,7 @@
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="{DynamicResource Brush.BackgroundToolBar}" BorderBrush="Black" BorderThickness="0" Padding="5 0">
                 <StackPanel Orientation="Horizontal">
                     <!--AppSettings-->
-                    <Button Command="{Binding NavigateAppSettingsCommand}" x:Name="BTAppSettings" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left">
+                    <Button Command="{Binding NavigateAppSettingsCommand}" x:Name="BTAppSettings" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" Cursor="Hand">
                         <Button.ToolTip>App-Einstellungen</Button.ToolTip>
                         <Button.Style>
                             <Style TargetType="Button">
@@ -142,9 +142,9 @@
                             <ImageBrush ImageSource="pack://application:,,,/Images/settings.png"/>
                         </Button.OpacityMask>
                     </Button>
-                    
+
                     <!--Fehlerliste-->
-                    <Button Command="{Binding NavigateErrorListCommand}" x:Name="ErrorList" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.CommandExit}" HorizontalAlignment="Left">
+                    <Button Command="{Binding NavigateErrorListCommand}" x:Name="ErrorList" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.CommandExit}" HorizontalAlignment="Left" Cursor="Hand">
                         <Button.ToolTip>Fehler-Logs</Button.ToolTip>
                         <Button.Style>
                             <Style TargetType="Button">

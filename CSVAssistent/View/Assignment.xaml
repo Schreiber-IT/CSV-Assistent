@@ -34,7 +34,7 @@
                 <DockPanel LastChildFill="True" VerticalAlignment="Center" Margin="10,0,0,0">
                     <!-- Rechts: Buttons nebeneinander -->
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
-                        <Border CornerRadius="15" Background="{DynamicResource Brush.CommandMinimize}" Width="22" Height="22" BorderThickness="1" BorderBrush="Black" Margin="0,0,10,0">
+                        <Border CornerRadius="15" Background="{DynamicResource Brush.CommandMinimize}" Width="22" Height="22" BorderThickness="1" BorderBrush="Black" Margin="0,0,10,0" Cursor="Hand">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Setter Property="Effect" Value="{x:Null}"/>
@@ -73,7 +73,7 @@
             Width="16"
             Height="16"
             Background="Transparent"
-            BorderThickness="0">
+            BorderThickness="0" Cursor="Hand">
                                 <Button.Style>
                                     <Style TargetType="Button"
                    BasedOn="{StaticResource NoHoverIconButton}">
@@ -120,7 +120,7 @@
                                 </Style>
                             </Border.Style>
                             <Button x:Name="BTClose" Width="16" Height="16" Command="{x:Static sys:SystemCommands.CloseWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
-                                <Image Source="pack://application:,,,/Images/close.png"/>
+                                <Image Source="pack://application:,,,/Images/close.png" Cursor="Hand"/>
                             </Button>
                         </Border>
                     </StackPanel>
@@ -136,7 +136,7 @@
             <!--Toolbar-->
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="{DynamicResource Brush.BackgroundToolBar}" BorderBrush="Black" BorderThickness="0" Padding="5 0">
                 <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding LoadAssignmentsCommand}" x:Name="BTLoadJson" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ImageButton}" HorizontalAlignment="Left">
+                    <Button Command="{Binding LoadAssignmentsCommand}" x:Name="BTLoadJson" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ImageButton}" HorizontalAlignment="Left" Cursor="Hand">
                         <Button.ToolTip>Zuweisung Laden</Button.ToolTip>
                         <Button.Style>
                             <Style TargetType="Button">
@@ -152,7 +152,7 @@
                             <ImageBrush ImageSource="pack://application:,,,/Images/folder_open.png"/>
                         </Button.OpacityMask>
                     </Button>
-                    <Button Command="{Binding SaveAssignmentsCommand}" x:Name="BTSaveJson" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ImageButton}" HorizontalAlignment="Left">
+                    <Button Command="{Binding SaveAssignmentsCommand}" x:Name="BTSaveJson" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ImageButton}" HorizontalAlignment="Left" Cursor="Hand">
                         <Button.ToolTip>Zuweisung speichern</Button.ToolTip>
                         <Button.Style>
                             <Style TargetType="Button">
@@ -218,7 +218,7 @@
                                     Background="Transparent"
                                     Style="{StaticResource NoHoverIconButton}"
                                     Command="{Binding AddMappingCommand}"
-                                    Content="Neue Spalte hinzufügen">
+                                    Content="Neue Spalte hinzufügen" Cursor="Hand">
                             </Button>
                         </Border>
                     </StackPanel>

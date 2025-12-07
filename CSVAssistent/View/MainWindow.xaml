@@ -54,7 +54,7 @@
                                 </Style>
                             </Border.Style>
                             <Button Command="{Binding ChangeThemeCommand}" x:Name="BTTheme" Width="16" Height="16" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
-                                <Image Source="pack://application:,,,/Images/palette.png"/>
+                                <Image Source="pack://application:,,,/Images/palette.png" Cursor="Hand"/>
                             </Button>
                         </Border>
 
@@ -71,7 +71,7 @@
                                 </Style>
                             </Border.Style>
                             <Button x:Name="BTMinimize" Width="16" Height="16" Command="{x:Static sys:SystemCommands.MinimizeWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
-                                <Image Source="pack://application:,,,/Images/minimize.png"/>
+                                <Image Source="pack://application:,,,/Images/minimize.png" Cursor="Hand"/>
                             </Button>
                         </Border>
                         <Border CornerRadius="15"
@@ -98,7 +98,7 @@
                                     Width="16"
                                     Height="16"
                                     Background="Transparent"
-                                    BorderThickness="0">
+                                    BorderThickness="0" Cursor="Hand">
                                 <Button.Style>
                                     <Style TargetType="Button"
                                         BasedOn="{StaticResource NoHoverIconButton}">
@@ -131,7 +131,7 @@
                         </Border>
 
 
-                        <Border CornerRadius="15" Background="{DynamicResource Brush.CommandExit}" Width="22" Height="22" BorderThickness="1" BorderBrush="Black" Margin="0,0,10,0">
+                        <Border CornerRadius="15" Background="{DynamicResource Brush.CommandExit}" Width="22" Height="22" BorderThickness="1" BorderBrush="Black" Margin="0,0,10,0" Cursor="Hand">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Setter Property="Effect" Value="{x:Null}"/>
@@ -161,7 +161,7 @@
                 <DockPanel LastChildFill="False">
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                         <!--Load File-->
-                        <Button Command="{Binding AddFileCommand}"  x:Name="BTAddFile" Width="30" Padding="25 5" Margin="30 5 5 5" Background="{DynamicResource Brush.ButtonCategoryA}" HorizontalAlignment="Left">
+                        <Button Command="{Binding AddFileCommand}"  x:Name="BTAddFile" Width="30" Padding="25 5" Margin="30 5 5 5" Background="{DynamicResource Brush.ButtonCategoryA}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>Datei hinzufügen</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -179,7 +179,7 @@
                         </Button>
 
                         <!--Load Folder-->
-                        <Button Command="{Binding AddFolderCommand}" x:Name="BTAddFolder" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryA}" HorizontalAlignment="Left">
+                        <Button Command="{Binding AddFolderCommand}" x:Name="BTAddFolder" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryA}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>Ordner hinzufügen</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -199,7 +199,7 @@
                         <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
 
                         <!--Datei Einstellungen-->
-                        <Button Command="{Binding OpenFileInfoCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTFileSettings" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left">
+                        <Button Command="{Binding OpenFileInfoCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTFileSettings" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>Datei Einstellungen</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -216,7 +216,7 @@
                             </Button.OpacityMask>
                         </Button>
 
-                        <Button Command="{Binding OpenAssignmentCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTAssignment" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left">
+                        <Button Command="{Binding OpenAssignmentCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTAssignment" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>Datei Einstellungen</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -233,10 +233,27 @@
                             </Button.OpacityMask>
                         </Button>
 
+                        <Button Command="{Binding SplitFileCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTSplit" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left" Cursor="Hand">
+                            <Button.ToolTip>Datei in mehrere kleine Dateien aufteilen</Button.ToolTip>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Effect" Value="{x:Null}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTSplit}" Value="True">
+                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.OpacityMask>
+                                <ImageBrush ImageSource="pack://application:,,,/Images/cut.png"/>
+                            </Button.OpacityMask>
+                        </Button>
+
                         <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
 
                         <!--Datei löschen-->
-                        <Button Command="{Binding DeleteFileCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTDelFolder" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryC}" HorizontalAlignment="Left">
+                        <Button Command="{Binding DeleteFileCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTDelFolder" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryC}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>Datei löschen</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -254,7 +271,7 @@
                         </Button>
 
                         <!--Liste leeren-->
-                        <Button x:Name="BTDelAll" Command="{Binding DeleteAllFilesCommand}" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryC}" HorizontalAlignment="Left">
+                        <Button x:Name="BTDelAll" Command="{Binding DeleteAllFilesCommand}" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryC}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>Liste leeren</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -274,7 +291,7 @@
                         <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
 
                         <!--Alle Dateien überprüfen-->
-                        <Button Command="{Binding ScanAllFilesCommand}" x:Name="BTCheck" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryD}" HorizontalAlignment="Left">
+                        <Button Command="{Binding ScanAllFilesCommand}" x:Name="BTCheck" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryD}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>Alle Dateien überprüfen</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -294,7 +311,7 @@
                         <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
 
                         <!--Export-->
-                        <Button Command="{Binding ExportDataCommand}" x:Name="BTExport" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryF}" HorizontalAlignment="Left">
+                        <Button Command="{Binding ExportDataCommand}" x:Name="BTExport" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryF}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>Exportieren</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -315,7 +332,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
                         <!--Einstellungen-->
-                        <Button Command="{Binding SettingsDialogCommand}" x:Name="BTSettings" Width="30" Padding="10 0" Margin="5" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left">
+                        <Button Command="{Binding SettingsDialogCommand}" x:Name="BTSettings" Width="30" Padding="10 0" Margin="5" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" Cursor="Hand">
                             <Button.ToolTip>App-Einstellungen</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -335,7 +352,7 @@
                         <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
 
                         <!--Help-->
-                        <Button Command="{Binding HelpCommand}" x:Name="BTHelp" Width="30" Padding="10 0" Margin="5" BorderBrush="#000" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" BorderThickness="1">
+                        <Button Command="{Binding HelpCommand}" x:Name="BTHelp" Width="30" Padding="10 0" Margin="5" BorderBrush="#000" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" BorderThickness="1" Cursor="Hand">
                             <Button.ToolTip>Hilfe</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -353,7 +370,7 @@
                         </Button>
 
                         <!--Info-->
-                        <Button Command="{Binding InfoDialogCommand}" x:Name="BTInfo" Width="30" Padding="10 0" Margin="5 5 30 5" BorderBrush="#000" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" BorderThickness="1">
+                        <Button Command="{Binding InfoDialogCommand}" x:Name="BTInfo" Width="30" Padding="10 0" Margin="5 5 30 5" BorderBrush="#000" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" BorderThickness="1" Cursor="Hand">
                             <Button.ToolTip>Info / About</Button.ToolTip>
                             <Button.Style>
                                 <Style TargetType="Button">
