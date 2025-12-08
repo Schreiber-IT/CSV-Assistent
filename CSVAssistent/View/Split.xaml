@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen"
         MinHeight="400" MinWidth="400"
         StateChanged="Window_StateChanged"
-        Title="Split" Height="450" Width="800">
+        Title="Split" Height="500" Width="1000">
     <Border CornerRadius="25 25 15 15" Background="{DynamicResource Brush.Background}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -142,12 +142,54 @@
             </Border>
 
             <!-- Hauptbereich -->
-            <Border Grid.Row="2" Grid.Column="0" Margin="0" Grid.ColumnSpan="2">
+            <Border Grid.Row="2" Grid.Column="0" Margin="10" Background="{DynamicResource Brush.FileWindowBackground}">
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
                 <Grid>
-                    <!--<ContentControl Content="{Binding CurrentViewModel}" />-->
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <TextBlock Text="Informationen" FontSize="18" Foreground="{DynamicResource Brush.ButtonCategoryE}"/>
+                        <DockPanel LastChildFill="True" Margin="10 5">
+                            <TextBlock Text="{Binding SplitFile.Name}" Foreground="{DynamicResource Brush.Foreground}" DockPanel.Dock="Right"/>
+                            <TextBlock Text="Dateiname:" Foreground="{DynamicResource Brush.Foreground}" DockPanel.Dock="Left"/>
+                        </DockPanel>
+                        <DockPanel LastChildFill="True" Margin="10 5">
+                            <TextBlock Text="{Binding SplitFile.FormattedLines}" Foreground="{DynamicResource Brush.Foreground}" DockPanel.Dock="Right"/>
+                            <TextBlock Text="Zeilen:" Foreground="{DynamicResource Brush.Foreground}" DockPanel.Dock="Left"/>
+                        </DockPanel>
+                        <Border Margin="10 15"/>
+                        <DockPanel LastChildFill="True" Margin="10 5">
+                            <TextBlock Text="{Binding FileCount}" Foreground="{DynamicResource Brush.Foreground}" DockPanel.Dock="Right"/>
+                            <TextBlock Text="Anzahl Dateien nach Split:" Foreground="{DynamicResource Brush.Foreground}" DockPanel.Dock="Left"/>
+                        </DockPanel>
+                        <DockPanel LastChildFill="True" Margin="10 5">
+                            <TextBlock Text="{Binding RowlimitString}" Foreground="{DynamicResource Brush.Foreground}" DockPanel.Dock="Right"/>
+                            <TextBlock Text="Zeilen je Datei nach Split:" Foreground="{DynamicResource Brush.Foreground}" DockPanel.Dock="Left"/>
+                        </DockPanel>
+                        <Border Margin="10 15"/>
+                    </StackPanel>
                 </Grid>
             </Border>
-
+            <Border Grid.Row="2" Grid.Column="1" Margin="10" Background="{DynamicResource Brush.FileWindowBackground}">
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+                <Grid>
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <TextBlock Text="Optionen" FontSize="18" Foreground="{DynamicResource Brush.ButtonCategoryE}"></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="2" Margin="10" Background="{DynamicResource Brush.FileWindowBackground}">
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+                <Grid>
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <TextBlock Text="Aktionen" FontSize="18" Foreground="{DynamicResource Brush.ButtonCategoryE}"></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Border>
             <!-- Footer -->
             <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="0 1 0 0" BorderBrush="black" Background="{DynamicResource Brush.BackgroundCommandBar}" CornerRadius="0 0 10 10">
                 <Grid>

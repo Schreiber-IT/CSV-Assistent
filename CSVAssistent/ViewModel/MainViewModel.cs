@@ -36,7 +36,7 @@ namespace CSVAssistent.ViewModel
         private readonly SettingsDialogViewModel _settingsDialogViewModel;
         private readonly HelpViewModel _helpViewModel;
         private readonly FileInfoViewModel _fileInfoViewModel;
-        private readonly AssignmentViewModel _assignmentViewModel;
+        public AssignmentViewModel _assignmentViewModel { get; }
         private readonly SplitViewModel _splitViewModel;
 
 

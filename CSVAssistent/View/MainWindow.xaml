@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
@@ -157,246 +157,195 @@
             </Border>
 
             <!--Toolbar-->
-            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="{DynamicResource Brush.BackgroundToolBar}" BorderBrush="Black" BorderThickness="0" Padding="5 0">
-                <DockPanel LastChildFill="False">
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                        <!--Load File-->
-                        <Button Command="{Binding AddFileCommand}"  x:Name="BTAddFile" Width="30" Padding="25 5" Margin="30 5 5 5" Background="{DynamicResource Brush.ButtonCategoryA}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Datei hinzufügen</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTAddFile}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/loadfile.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="{DynamicResource Brush.BackgroundCommandBar}" BorderBrush="Black" BorderThickness="0" Padding="5 0">
 
-                        <!--Load Folder-->
-                        <Button Command="{Binding AddFolderCommand}" x:Name="BTAddFolder" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryA}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Ordner hinzufügen</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTAddFolder}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/folder.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                <TabControl Height="auto" FontSize="16" FontWeight="Normal" Background="{DynamicResource Brush.BackgroundCommandBar}" BorderThickness="0" Margin="0 5" Padding="0">
+                    <TabControl.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{DynamicResource Brush.Assignment}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.ForegroundButton}"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource Brush.ForegroundButton}"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                            <Setter Property="Width" Value="80"/>
+                            <Setter Property="Height" Value="60"/>
+                            <Setter Property="Margin" Value="5 10 0 0"/>
+                            <Setter Property="SnapsToDevicePixels" Value="True"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <!-- Keine eigenen Hintergründe: Border ist transparent -->
+                                        <Border Background="Transparent" CornerRadius="10">
+                                            <StackPanel Orientation="Vertical">
+                                                <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}" Height="30"/>
+                                                <TextBlock Foreground="{DynamicResource Brush.ForegroundCommandBar}"
+                                                           Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
+                                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <!-- KEIN IsMouseOver-Trigger -->
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter Property="BorderBrush" Value="{DynamicResource Brush.Assignment}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="Opacity" Value="0.5"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                                <Setter Property="BorderBrush" Value="{DynamicResource Brush.ForegroundButton}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
 
-                        <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Width" Value="auto"/>
+                            <Setter Property="Height" Value="35"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border x:Name="Bd"
+                                            Background="{DynamicResource Brush.BackgroundToolBar}"
+                                            Padding="10 0"
+                                            Margin="1 0 2 0"
+                                            BorderThickness="1"
+                                            CornerRadius="10,10,0,0">
+                                            <ContentPresenter 
+                                                ContentSource="Header"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Brush.Assignment}"/>
+                                            </Trigger>
 
-                        <!--Datei Einstellungen-->
-                        <Button Command="{Binding OpenFileInfoCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTFileSettings" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Datei Einstellungen</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTFileSettings}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/fileinfo.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
 
-                        <Button Command="{Binding OpenAssignmentCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTAssignment" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Datei Einstellungen</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTAssignment}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/zuordnung.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                    </TabControl.Resources>
+                    <TabItem Header="Datei">
 
-                        <Button Command="{Binding SplitFileCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTSplit" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryB}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Datei in mehrere kleine Dateien aufteilen</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTSplit}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/cut.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                        <StackPanel Orientation="Horizontal">
+                            
+                            <Button Content="Hinzufügen" 
+                                    Command="{Binding AddFileCommand}" 
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/loadfile.png" 
+                                    ToolTip="Datei hinzufügen"/>
 
-                        <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
+                            <Button Content="Hinzufügen" 
+                                    Command="{Binding AddFolderCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/folder.png"
+                                    ToolTip="Ordner hinzufügen"/>
 
-                        <!--Datei löschen-->
-                        <Button Command="{Binding DeleteFileCommand}" CommandParameter="{Binding SelectedFile}" x:Name="BTDelFolder" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryC}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Datei löschen</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTDelFolder}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/deletefile.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                            <Border Width="2" Margin="30 5" Background="{DynamicResource Brush.ForegroundCommandBar}" BorderThickness="1" BorderBrush="{DynamicResource Brush.ForegroundCommandBar}"/>
 
-                        <!--Liste leeren-->
-                        <Button x:Name="BTDelAll" Command="{Binding DeleteAllFilesCommand}" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryC}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Liste leeren</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTDelAll}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/deletelist.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                            <Button Content="Löschen" 
+                                    Command="{Binding DeleteFileCommand}" 
+                                    CommandParameter="{Binding SelectedFile}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/deletefile.png"
+                                    ToolTip="Datei aus Liste entfernen"/>
 
-                        <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
+                            <Button Content="Löschen" 
+                                    Command="{Binding DeleteAllFilesCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/deletelist.png"
+                                    ToolTip="Liste leeren"/>
 
-                        <!--Alle Dateien überprüfen-->
-                        <Button Command="{Binding ScanAllFilesCommand}" x:Name="BTCheck" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryD}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Alle Dateien überprüfen</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTCheck}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/scan.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                            <Border Width="2" Margin="30 5" Background="{DynamicResource Brush.ForegroundCommandBar}" BorderThickness="1" BorderBrush="{DynamicResource Brush.ForegroundCommandBar}"/>
 
-                        <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
+                            <Button Content="Speichern" 
+                                    Command="{Binding _assignmentViewModel.SaveAssignmentsCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/savefile.png"
+                                    ToolTip="Speichern der Zuweisungsdatei"/>
 
-                        <!--Export-->
-                        <Button Command="{Binding ExportDataCommand}" x:Name="BTExport" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryF}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>Exportieren</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTExport}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/export.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                            <Button Content="Laden" 
+                                    Command="{Binding _assignmentViewModel.LoadAssignmentsCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/folder_open.png"
+                                    ToolTip="Laden der Zuweisungsdatei"/>
 
-                        <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                        <!--Einstellungen-->
-                        <Button Command="{Binding SettingsDialogCommand}" x:Name="BTSettings" Width="30" Padding="10 0" Margin="5" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" Cursor="Hand">
-                            <Button.ToolTip>App-Einstellungen</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTSettings}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/settings.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Bearbeiten">
+                        <StackPanel Orientation="Horizontal">
+                            
+                            <Button Content="Viewer" 
+                                    Command="{Binding OpenFileInfoCommand}"
+                                    CommandParameter="{Binding SelectedFile}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/fileinfo.png"
+                                    ToolTip="Dateiinhalt anschauen"/>
+                            
+                            <Button Content="Zuweisung" 
+                                    Command="{Binding OpenAssignmentCommand}" 
+                                    CommandParameter="{Binding SelectedFile}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/zuordnung.png"
+                                    ToolTip="Zentrale Spalten zuweisen"/>
+                            
+                            <Button Content="Split" 
+                                    Command="{Binding SplitFileCommand}" 
+                                    CommandParameter="{Binding SelectedFile}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/cut.png"
+                                    ToolTip="Datei in mehrere Dateien aufteilen"/>
+                            
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Export">
+                        <StackPanel Orientation="Horizontal">
 
-                        <Border Width="2" Margin="30 0" Background="{DynamicResource Brush.Background}" BorderThickness="1" BorderBrush="{DynamicResource Brush.Background}"/>
+                            <Button Content="Überprüfen" 
+                                    Command="{Binding ScanAllFilesCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/scan.png"
+                                    ToolTip="Alle Dateien überprüfen"/>
 
-                        <!--Help-->
-                        <Button Command="{Binding HelpCommand}" x:Name="BTHelp" Width="30" Padding="10 0" Margin="5" BorderBrush="#000" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" BorderThickness="1" Cursor="Hand">
-                            <Button.ToolTip>Hilfe</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTHelp}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/help.png"/>
-                            </Button.OpacityMask>
-                        </Button>
+                            <Button Content="Exportieren" 
+                                     Command="{Binding ExportDataCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/export.png"
+                                    ToolTip="Exportieren"/>
 
-                        <!--Info-->
-                        <Button Command="{Binding InfoDialogCommand}" x:Name="BTInfo" Width="30" Padding="10 0" Margin="5 5 30 5" BorderBrush="#000" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" BorderThickness="1" Cursor="Hand">
-                            <Button.ToolTip>Info / About</Button.ToolTip>
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Effect" Value="{x:Null}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTInfo}" Value="True">
-                                            <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.OpacityMask>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/info.png"/>
-                            </Button.OpacityMask>
-                        </Button>
-                    </StackPanel>
-                </DockPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Einstellungen">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Button Content="Einstellungen" 
+                                    Command="{Binding SettingsDialogCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/settings.png"
+                                    ToolTip="Einstellungen"/>
+
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Informationen">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Button Content="Hilfe" 
+                                    Command="{Binding HelpCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/help.png"
+                                    ToolTip="Hilfe"/>
+
+                            <Button Content="About" 
+                                    Command="{Binding InfoDialogCommand}"
+                                    Tag="pack://application:,,,/CSVAssistent;component/Images/info.png"
+                                    ToolTip="About/Info"/>
+
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
             </Border>
 
             <!-- Hauptbereich -->
             <Border Grid.Row="2" Grid.Column="0" Margin="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="49*"/>
-                        <ColumnDefinition Width="146*"/>
-                        <ColumnDefinition Width="805*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <ListBox x:Name="FileListBox"
                      Margin="10,10,10,10"
@@ -444,7 +393,10 @@
                         <Label x:Name="footer2" Foreground="White" HorizontalContentAlignment="Left" Content="{Binding Files.Count}"/>
                     </Border>
                     <Border Grid.Column="2" Background="transparent">
-                        <Label x:Name="footer3" Foreground="White" />
+                        <Label x:Name="footer3"
+                               Foreground="White"
+                               Content="{Binding ElementName=FileListBox, Path=SelectedItem.FormattedLines, FallbackValue=-, TargetNullValue=-}"
+                               ContentStringFormat="Zeilen: {0}"/>
                     </Border>
                     <Border Grid.Column="3" Background="transparent">
                         <Label x:Name="footer4" Foreground="IndianRed" FontWeight="Bold" Content="{Binding FooterInfo}"/>
