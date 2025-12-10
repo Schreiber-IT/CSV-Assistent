@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using CSVAssistent.Core;
 using CSVAssistent.Services;
 using CSVAssistent.ViewModel;
+using CSVAssistent.View.Pages;
 
 namespace CSVAssistent.View
 {

@@ -14,17 +14,13 @@ using System.Windows.Shapes;
 namespace CSVAssistent.View.Pages
 {
     /// <summary>
-    /// Interaktionslogik für Settings.xaml
+    /// Interaktionslogik für FileDetailView.xaml
     /// </summary>
-    public partial class AppSettings : System.Windows.Controls.UserControl
+    public partial class FileDetailView : System.Windows.Controls.UserControl
     {
-        public AppSettings()
+        public FileDetailView()
         {
             InitializeComponent();
-
-            // AppSettings-Teil explizit auf MainWindow-VM binden
-            var mainVm = System.Windows.Application.Current.MainWindow?.DataContext;
-            AppSettingsControl.DataContext = mainVm;
         }
     }
 }

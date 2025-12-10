@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSVAssistent.View" 
+        xmlns:pages="clr-namespace:CSVAssistent.View.Pages" 
         xmlns:core="clr-namespace:CSVAssistent.Core"
         xmlns:vm="clr-namespace:CSVAssistent.ViewModel"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -26,6 +27,8 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35" />
@@ -86,9 +89,9 @@
                                     <Setter Property="Effect" Value="{x:Null}" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTMaximize}"
-                             Value="True">
+                                                     Value="True">
                                             <Setter Property="Effect"
-                            Value="{StaticResource PillShadowPressed}" />
+                                                    Value="{StaticResource PillShadowPressed}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -151,7 +154,7 @@
                     <!-- Links: füllt den gesamten restlichen Platz -->
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
                         <Image Source="pack://application:,,,/Images/code.png" Width="20" Height="20" VerticalAlignment="Center"/>
-                        <TextBlock Text="CSV-Assistent" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource Brush.ForegroundCommandBar}"/>
+                        <TextBlock Text="CSV-Assistent" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource Brush.ForegroundCommandBar}"/>
                     </StackPanel>
                 </DockPanel>
             </Border>
@@ -159,80 +162,12 @@
             <!--Toolbar-->
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="{DynamicResource Brush.BackgroundCommandBar}" BorderBrush="Black" BorderThickness="0" Padding="5 0">
 
-                <TabControl Height="auto" FontSize="16" FontWeight="Normal" Background="{DynamicResource Brush.BackgroundCommandBar}" BorderThickness="0" Margin="0 5" Padding="0">
+                <TabControl Height="auto" FontSize="14" FontWeight="Normal" Background="{DynamicResource Brush.BackgroundCommandBar}" BorderThickness="0" Margin="0 5" Padding="0">
                     <TabControl.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="{DynamicResource Brush.Assignment}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource Brush.ForegroundButton}"/>
-                            <Setter Property="BorderThickness" Value="1"/>
-                            <Setter Property="BorderBrush" Value="{DynamicResource Brush.ForegroundButton}"/>
-                            <Setter Property="FontSize" Value="12"/>
-                            <Setter Property="FontWeight" Value="Normal"/>
-                            <Setter Property="Width" Value="80"/>
-                            <Setter Property="Height" Value="60"/>
-                            <Setter Property="Margin" Value="5 10 0 0"/>
-                            <Setter Property="SnapsToDevicePixels" Value="True"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <!-- Keine eigenen Hintergründe: Border ist transparent -->
-                                        <Border Background="Transparent" CornerRadius="10">
-                                            <StackPanel Orientation="Vertical">
-                                                <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}" Height="30"/>
-                                                <TextBlock Foreground="{DynamicResource Brush.ForegroundCommandBar}"
-                                                           Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
-                                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                            </StackPanel>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <!-- KEIN IsMouseOver-Trigger -->
-                                            <Trigger Property="IsPressed" Value="True">
-                                                <Setter Property="BorderBrush" Value="{DynamicResource Brush.Assignment}"/>
-                                            </Trigger>
-                                            <Trigger Property="IsEnabled" Value="False">
-                                                <Setter Property="Opacity" Value="0.5"/>
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Cursor" Value="Hand"/>
-                                                <Setter Property="BorderBrush" Value="{DynamicResource Brush.ForegroundButton}"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-
-                        <Style TargetType="TabItem">
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Setter Property="Width" Value="auto"/>
-                            <Setter Property="Height" Value="35"/>
-                            <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground}"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="TabItem">
-                                        <Border x:Name="Bd"
-                                            Background="{DynamicResource Brush.BackgroundToolBar}"
-                                            Padding="10 0"
-                                            Margin="1 0 2 0"
-                                            BorderThickness="1"
-                                            CornerRadius="10,10,0,0">
-                                            <ContentPresenter 
-                                                ContentSource="Header"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Brush.Assignment}"/>
-                                            </Trigger>
-
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-
+                        <Style TargetType="Button"
+                               BasedOn="{StaticResource RibbonMenuButtonStyle}" />
+                        <Style TargetType="TabItem"
+                               BasedOn="{StaticResource RibbonTabItemStyle}" />
                     </TabControl.Resources>
                     <TabItem Header="Datei">
 
@@ -375,6 +310,11 @@
                     </ListBox>
 
                 </Grid>
+            </Border>
+            <GridSplitter Grid.Row="2" Grid.Column="1" Width="5" Background="{DynamicResource Brush.Assignment}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowsPreview="True"/>
+
+            <Border Grid.Row="2" Grid.Column="2">
+                <pages:FileDetailView DataContext="{Binding SelectedFile}"/>
             </Border>
 
             <!-- Footer -->

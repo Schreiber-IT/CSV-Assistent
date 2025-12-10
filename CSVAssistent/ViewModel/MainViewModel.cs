@@ -42,6 +42,33 @@ namespace CSVAssistent.ViewModel
 
         public ObservableCollection<FileEntry> Files { get; } = new();
 
+        
+        private int _menuiconsize;
+        public int MenuIconSize
+        {
+            get => _menuiconsize;
+            set
+            {
+                if (_menuiconsize == value) return;
+                _menuiconsize = value;
+                _settingsService.SetInt("MenuIconSize", value);
+                OnPropertyChanged();
+            }
+        }
+
+        private int _menutextsize;
+        public int MenuTextSize
+        {
+            get => _menutextsize;
+            set
+            {
+                if (_menutextsize == value) return;
+                _menutextsize = value;
+                _settingsService.SetInt("MenuTextSize", value);
+                OnPropertyChanged();
+            }
+        }
+
         private bool _exportReady;
         public bool ExportReady
         {
@@ -605,15 +632,31 @@ namespace CSVAssistent.ViewModel
         {
             try
             {
+                if (!System.IO.File.Exists(fullPath)) { return; }
+                if (Files.Any(f => f.FullPath == fullPath)) { return; }
+
+                // Count lines
                 var lines = CountLines(fullPath);
-                if (Files.Any(f => f.FullPath == fullPath)) return;
+                
                 Files.Add(new FileEntry
                 {
                     FullPath = fullPath,
                     Name = Path.GetFileName(fullPath),
                     Lines = lines
-
                 });
+
+                var addedFile = Files.Last();
+                if (addedFile == null) return;
+
+                // Detect delimiter
+                var line = System.IO.File.ReadLines(fullPath).FirstOrDefault();
+                if (line != null) {
+                    var del = CsvParsingHelper.DetectDelimiter(line);
+                    addedFile.Separator = del.ToString();
+                }
+
+                // Set hash for the added file
+                addedFile.SetHash();
             }
             catch (FileNotFoundException ex)
             {
@@ -729,6 +772,10 @@ namespace CSVAssistent.ViewModel
                 _themeService.ApplyTheme(theme);
                 ActiveTheme = _themeService.CurrentThemeId;
                 // --------------------------------------------------------------------------
+
+
+                MenuIconSize = _settingsService.GetInt("MenuIconSize", 20);
+                MenuTextSize = _settingsService.GetInt("MenuTextSize", 10);
 
             }
             catch (Exception ex)

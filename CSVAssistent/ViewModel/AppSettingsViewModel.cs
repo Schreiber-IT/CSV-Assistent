@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using CSVAssistent.Core;
+﻿using CSVAssistent.Core;
 using CSVAssistent.Services;
 using CSVAssistent.Services.ErrorLog;
 using CSVAssistent.Services.Settings;
+using CSVAssistent.Services.Theming;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
 
 namespace CSVAssistent.ViewModel
 {
@@ -17,9 +18,11 @@ namespace CSVAssistent.ViewModel
         private readonly IErrorService _errorService;
         private readonly ISettingsService _settingsService;
         private readonly IWindowService _windowService;
+        private readonly IThemeService _themeService;
 
         public ObservableCollection<string> DoubleClickOptions { get; }
         public ObservableCollection<string> RowLimit { get; }
+        public ObservableCollection<string> ThemeOptions { get; }
 
         private string _selectedDbClick = "DateiInfo";
         public string SelectedDBClick
@@ -59,12 +62,34 @@ namespace CSVAssistent.ViewModel
                 }
             }
         }
-
+        private string? _activeTheme;
+        public string? ActiveTheme
+        {
+            get => _activeTheme;
+            set
+            {
+                if (_activeTheme == value) return;
+                _activeTheme = value;
+                if (!string.IsNullOrEmpty(ActiveTheme))
+                {
+                    _themeService.ApplyTheme(ActiveTheme);
+                }
+                OnPropertyChanged();
+            }
+        }
         public AppSettingsViewModel()
         {
             _windowService = ServiceLocator.WindowService;
             _settingsService = ServiceLocator.SettingsService;
+            _themeService = ServiceLocator.ThemeService;
             _errorService = ServiceLocator.ErrorService;
+            ThemeOptions = new ObservableCollection<string>();
+            var theme = ServiceLocator.ThemeService.AvailableThemes;
+            for (int i = 0; i < theme.Count; i++)
+            {
+                ThemeOptions.Add(theme[i].Id);
+            }
+            ActiveTheme = _themeService.CurrentThemeId;
 
             DoubleClickOptions = new ObservableCollection<string>
             {

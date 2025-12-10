@@ -1,73 +1,154 @@
 ﻿<UserControl x:Class="CSVAssistent.View.Pages.AppSettings"
+             x:Name="AppSettingsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CSVAssistent.View.Pages"
+             xmlns:local="clr-namespace:CSVAssistent.View.Pages" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <Border BorderThickness="1" BorderBrush="black" 
+             ScrollViewer.CanContentScroll="True"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             ScrollViewer.IsDeferredScrollingEnabled="True"
+             d:DesignHeight="700" d:DesignWidth="800">
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border BorderThickness="1" BorderBrush="black" 
                 Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
                 Height="80" 
                 CornerRadius="10"
                 Background="{DynamicResource Brush.Background}"
                 Padding="10" Margin="10">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
-            </Border.Effect>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Doppelklick Auswahl" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
-                    <ComboBox Text="Doppelklick Auswahl"
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Doppelklick Auswahl" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
+                        <ComboBox Text="Doppelklick Auswahl"
                       ItemsSource="{Binding DoubleClickOptions}"
                       SelectedItem="{Binding SelectedDBClick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Height="25" Width="200"/>
-                </StackPanel>
-                <TextBlock Text="Wählen Sie aus, welche Aktion beim Doppelklick auf eine Zelle ausgeführt werden soll." 
+                    </StackPanel>
+                    <TextBlock Text="Wählen Sie aus, welche Aktion beim Doppelklick auf eine Zelle ausgeführt werden soll." 
                            VerticalAlignment="Center" Margin="20 0"
                            Foreground="{DynamicResource Brush.Foreground}"/>
-            </StackPanel>
-        </Border>
-        <Border BorderThickness="1" BorderBrush="black" 
+                </StackPanel>
+            </Border>
+
+            <Border BorderThickness="1" BorderBrush="black" 
                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
                 Height="80" 
                 CornerRadius="10"
                 Background="{DynamicResource Brush.Background}"
                 Padding="10" Margin="10">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
-            </Border.Effect>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Zeilen-Limit für DateiInfo" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
-                    <ComboBox ItemsSource="{Binding RowLimit}"
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Zeilen-Limit für DateiInfo" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
+                        <ComboBox ItemsSource="{Binding RowLimit}"
                       SelectedItem="{Binding SelectedRowLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Height="25" Width="200"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <TextBlock Text="Wählen Sie aus, ab wann die DateiInfo-Anzeige aus Performancegründen" 
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="Wählen Sie aus, ab wann die DateiInfo-Anzeige aus Performancegründen" 
                        VerticalAlignment="Center" Margin="20 0"
                        Foreground="{DynamicResource Brush.Foreground}"/>
-                    <TextBlock Text="die Daten nicht mehr anzeigen soll!" 
+                        <TextBlock Text="die Daten nicht mehr anzeigen soll!" 
                        VerticalAlignment="Center" Margin="20 0"
                        Foreground="{DynamicResource Brush.Foreground}"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </Border>
-    </Grid>
+            </Border>
+
+            <Border BorderThickness="1" BorderBrush="black" 
+                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+                Height="80" 
+                CornerRadius="10"
+                Background="{DynamicResource Brush.Background}"
+                Padding="10" Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Theme Auswahl" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
+                        <ComboBox ItemsSource="{Binding ThemeOptions}"
+                      SelectedItem="{Binding ActiveTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Height="25" Width="200"/>
+                    </StackPanel>
+                    <TextBlock Text="Wählen Sie das gewünschte Theme für die Anwendung aus." 
+                           VerticalAlignment="Center" Margin="20 0"
+                           Foreground="{DynamicResource Brush.Foreground}"/>
+                </StackPanel>
+            </Border>
+
+            <Border BorderThickness="1" BorderBrush="black" 
+         Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
+         Height="80" 
+         CornerRadius="10"
+         Background="{DynamicResource Brush.Background}"
+         Padding="10" Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Menu Icon Größe" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
+                        <Slider Minimum="20"
+                            Maximum="80"
+                            Interval="5"
+                            Value="{Binding MenuIconSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Height="30"
+                            Width="200"/>
+                    </StackPanel>
+                    <TextBlock Text="Hier können sie die größe der Menu Icons einstellen." 
+                                VerticalAlignment="Center" Margin="20 0"
+                                Foreground="{DynamicResource Brush.Foreground}"/>
+                </StackPanel>
+            </Border>
+
+            <Border BorderThickness="1" BorderBrush="black" 
+                    Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
+                    Height="80" 
+                    CornerRadius="10"
+                    Background="{DynamicResource Brush.Background}"
+                    Padding="10" Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Menu Text Größe" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
+                        <Slider Minimum="10"
+                            Maximum="25"
+                            Interval="5"
+                            Value="{Binding MenuTextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Height="30"
+                            Width="200"/>
+                    </StackPanel>
+                    <TextBlock Text="Hier können sie die größe vom Menu Text einstellen." 
+                                VerticalAlignment="Center" Margin="20 0"
+                                Foreground="{DynamicResource Brush.Foreground}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

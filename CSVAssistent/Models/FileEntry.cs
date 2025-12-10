@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Globalization; // Neu hinzufügen
 using System.Runtime.CompilerServices;
+using CSVAssistent.Helper;
 
 namespace CSVAssistent.Models
 {
@@ -13,8 +14,10 @@ namespace CSVAssistent.Models
         private int _status = 0; // 0 = nicht zugewiesen, 1 = zugewiesen
 
         public long Lines { get; set; }
-        
-        // Neue Property für formatierte Zeilenanzahl
+
+        public string? Separator { get; set; }
+        public string? FileHash { get; set; }
+
         public string FormattedLines => Lines.ToString("N0", new CultureInfo("de-DE"));
 
         public int Status
@@ -29,7 +32,19 @@ namespace CSVAssistent.Models
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        /// <summary>
+        /// Sets the FileHash property by computing the hash of the file at FullPath if it is not already set.
+        /// </summary>
+        public void SetHash() 
+        {
+            if (FileHash == null)
+            {
+                FileHash = FileHashHelper.ComputeFileHash(FullPath);
+            }
+        }
     }
 }

@@ -8,6 +8,11 @@ namespace CSVAssistent.Helper
     {
         private static readonly char[] DefaultDelimiters = { ';', ',', '\t', '|' };
 
+        /// <summary>
+        /// Detects the most likely delimiter in a CSV line by counting occurrences of common delimiters.
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns>char</returns>
         public static char DetectDelimiter(string line)
         {
             if (string.IsNullOrEmpty(line))
@@ -31,6 +36,12 @@ namespace CSVAssistent.Helper
             return bestDelimiter;
         }
 
+        /// <summary>
+        /// Counts occurrences of a delimiter in a CSV line, ignoring delimiters within quoted fields.
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="delimiter"></param>
+        /// <returns>int</returns>
         private static int CountDelimiter(string line, char delimiter)
         {
             var count = 0;
@@ -61,6 +72,17 @@ namespace CSVAssistent.Helper
             return count;
         }
 
+        /// <summary>
+        /// Splits a delimited text line into a list of field values, handling quoted fields and escaped quotes.
+        /// </summary>
+        /// <remarks>Fields enclosed in double quotes are treated as a single value, even if they contain
+        /// delimiter characters. Double quotes within quoted fields must be escaped by doubling them (e.g., "" becomes
+        /// ").</remarks>
+        /// <param name="line">The input string representing a single line of delimited text. May contain quoted fields and escaped quotes.
+        /// If null, an empty list is returned.</param>
+        /// <param name="delimiter">The character used to separate fields in the input line.</param>
+        /// <returns>A list of strings containing the parsed field values from the input line. The list will be empty if the
+        /// input is null.</returns>
         public static List<string> SplitLine(string line, char delimiter)
         {
             var values = new List<string>();
