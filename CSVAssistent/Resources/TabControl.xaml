@@ -53,7 +53,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
-                    <Border x:Name="Bd"
+                    <Border x:Name="BdT"
                             Background="{DynamicResource Brush.BackgroundToolBar}"
                             Padding="10 0"
                             Margin="1 0 2 0"
@@ -66,7 +66,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource Brush.Assignment}"/>
+                            <Setter TargetName="BdT" Property="Background" Value="{DynamicResource Brush.Assignment}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

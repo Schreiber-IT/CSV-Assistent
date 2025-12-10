@@ -59,4 +59,6 @@
     <SolidColorBrush x:Key="Brush.FileInfoBorder" Color="{StaticResource Color.FileInfoBorder}"/>
     <Color x:Key="Color.AssignmentBorder">#FFF8FAFC</Color>
     <SolidColorBrush x:Key="Brush.AssignmentBorder" Color="{StaticResource Color.AssignmentBorder}"/>
+    <Color x:Key="Color.ButtonShadow">#FFF8FAFC</Color>
+    <Color x:Key="Color.ButtonShadowPress">#FF000000</Color>
 </ResourceDictionary>

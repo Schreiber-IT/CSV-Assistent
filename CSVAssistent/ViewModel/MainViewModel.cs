@@ -167,6 +167,9 @@ namespace CSVAssistent.ViewModel
             _settingsDialogViewModel = new SettingsDialogViewModel();
             SettingsDialogCommand = new RelayCommand(_ => OpenSettingsDialog());
 
+            // Live-Update: auf Änderungen im AppSettings-VM reagieren
+            _settingsDialogViewModel.AppSettingsViewModel.PropertyChanged += AppSettings_PropertyChanged;
+
             _helpViewModel = new HelpViewModel();
             HelpCommand = new RelayCommand(_ => ShowHelp());
 
@@ -850,6 +853,33 @@ namespace CSVAssistent.ViewModel
             catch (Exception ex)
             {
                 _errorService.HandleException(ex, "AssignmentViewModel_AssignmentsChanged", true, false);
+            }
+        }
+
+        private void AppSettings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            // Synchronisiere Menügrößen sofort beim Slider-Bewegen
+            if (e.PropertyName == nameof(AppSettingsViewModel.SelectedRowLimit))
+            {
+                // nichts für Menügrößen
+            }
+            else if (e.PropertyName == "MenuIconSize")
+            {
+                // Falls Sie MenuIconSize im AppSettingsViewModel hinzufügen:
+                // MenuIconSize = _settingsService.GetInt("MenuIconSize", MenuIconSize);
+                // Oder direkt aus dem VM casten:
+                if (sender is AppSettingsViewModel vm)
+                {
+                    // optional: aus SettingsService lesen, da VM SetInt bereits aufruft
+                    MenuIconSize = _settingsService.GetInt("MenuIconSize", MenuIconSize);
+                }
+            }
+            else if (e.PropertyName == "MenuTextSize")
+            {
+                if (sender is AppSettingsViewModel vm)
+                {
+                    MenuTextSize = _settingsService.GetInt("MenuTextSize", MenuTextSize);
+                }
             }
         }
     }

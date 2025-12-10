@@ -22,6 +22,8 @@ namespace CSVAssistent.ViewModel
         public ICommand NavigateErrorListCommand { get; }
 
         private readonly AppSettingsViewModel _appsettingsViewModel;
+        public AppSettingsViewModel AppSettingsViewModel => _appsettingsViewModel;
+
         private readonly ErrorListViewModel _errorlistViewModel;
         private BaseViewModel? _currentViewModel;
         public BaseViewModel? CurrentViewModel

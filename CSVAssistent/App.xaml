@@ -5,6 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/ComboBox.xaml" />
                 <ResourceDictionary Source="Resources/TabControl.xaml" />
                 <ResourceDictionary Source="Resources/Slider.xaml" />
                 <ResourceDictionary Source="Resources/Scrollbar.xaml" />

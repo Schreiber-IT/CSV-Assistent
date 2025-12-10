@@ -21,10 +21,6 @@ namespace CSVAssistent.View.Pages
         public AppSettings()
         {
             InitializeComponent();
-
-            // AppSettings-Teil explizit auf MainWindow-VM binden
-            var mainVm = System.Windows.Application.Current.MainWindow?.DataContext;
-            AppSettingsControl.DataContext = mainVm;
         }
     }
 }

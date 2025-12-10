@@ -41,13 +41,14 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Doppelklick Auswahl" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
                         <ComboBox Text="Doppelklick Auswahl"
-                      ItemsSource="{Binding DoubleClickOptions}"
-                      SelectedItem="{Binding SelectedDBClick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Height="25" Width="200"/>
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  ItemsSource="{Binding DoubleClickOptions}"
+                                  SelectedItem="{Binding SelectedDBClick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Height="25" Width="200"/>
                     </StackPanel>
                     <TextBlock Text="Wählen Sie aus, welche Aktion beim Doppelklick auf eine Zelle ausgeführt werden soll." 
-                           VerticalAlignment="Center" Margin="20 0"
-                           Foreground="{DynamicResource Brush.Foreground}"/>
+                               VerticalAlignment="Center" Margin="20 0"
+                               Foreground="{DynamicResource Brush.Foreground}"/>
                 </StackPanel>
             </Border>
 
@@ -64,16 +65,17 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Zeilen-Limit für DateiInfo" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
                         <ComboBox ItemsSource="{Binding RowLimit}"
-                      SelectedItem="{Binding SelectedRowLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Height="25" Width="200"/>
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  SelectedItem="{Binding SelectedRowLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Height="25" Width="200"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                         <TextBlock Text="Wählen Sie aus, ab wann die DateiInfo-Anzeige aus Performancegründen" 
-                       VerticalAlignment="Center" Margin="20 0"
-                       Foreground="{DynamicResource Brush.Foreground}"/>
+                                   VerticalAlignment="Center" Margin="20 0"
+                                   Foreground="{DynamicResource Brush.Foreground}"/>
                         <TextBlock Text="die Daten nicht mehr anzeigen soll!" 
-                       VerticalAlignment="Center" Margin="20 0"
-                       Foreground="{DynamicResource Brush.Foreground}"/>
+                                   VerticalAlignment="Center" Margin="20 0"
+                                   Foreground="{DynamicResource Brush.Foreground}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -91,12 +93,13 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Theme Auswahl" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
                         <ComboBox ItemsSource="{Binding ThemeOptions}"
-                      SelectedItem="{Binding ActiveTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Height="25" Width="200"/>
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  SelectedItem="{Binding ActiveTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Height="25" Width="200"/>
                     </StackPanel>
                     <TextBlock Text="Wählen Sie das gewünschte Theme für die Anwendung aus." 
-                           VerticalAlignment="Center" Margin="20 0"
-                           Foreground="{DynamicResource Brush.Foreground}"/>
+                               VerticalAlignment="Center" Margin="20 0"
+                               Foreground="{DynamicResource Brush.Foreground}"/>
                 </StackPanel>
             </Border>
 

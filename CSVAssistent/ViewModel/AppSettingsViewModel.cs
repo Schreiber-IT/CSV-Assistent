@@ -43,6 +43,7 @@ namespace CSVAssistent.ViewModel
                 }
             }
         }
+
         private string _selectedRowLimit = "100_000";
         public string SelectedRowLimit
         {
@@ -62,6 +63,7 @@ namespace CSVAssistent.ViewModel
                 }
             }
         }
+
         private string? _activeTheme;
         public string? ActiveTheme
         {
@@ -77,12 +79,55 @@ namespace CSVAssistent.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        // Neue Eigenschaften für Slider
+        private int _menuIconSize;
+        public int MenuIconSize
+        {
+            get => _menuIconSize;
+            set
+            {
+                if (SetProperty(ref _menuIconSize, value))
+                {
+                    try
+                    {
+                        _settingsService.SetInt("MenuIconSize", value);
+                    }
+                    catch (Exception ex)
+                    {
+                        _errorService.HandleException(ex, "AppSettings-MenuIconSize", true, false);
+                    }
+                }
+            }
+        }
+
+        private int _menuTextSize;
+        public int MenuTextSize
+        {
+            get => _menuTextSize;
+            set
+            {
+                if (SetProperty(ref _menuTextSize, value))
+                {
+                    try
+                    {
+                        _settingsService.SetInt("MenuTextSize", value);
+                    }
+                    catch (Exception ex)
+                    {
+                        _errorService.HandleException(ex, "AppSettings-MenuTextSize", true, false);
+                    }
+                }
+            }
+        }
+
         public AppSettingsViewModel()
         {
             _windowService = ServiceLocator.WindowService;
             _settingsService = ServiceLocator.SettingsService;
             _themeService = ServiceLocator.ThemeService;
             _errorService = ServiceLocator.ErrorService;
+
             ThemeOptions = new ObservableCollection<string>();
             var theme = ServiceLocator.ThemeService.AvailableThemes;
             for (int i = 0; i < theme.Count; i++)
@@ -126,6 +171,10 @@ namespace CSVAssistent.ViewModel
                 if (!RowLimit.Contains(setting2))
                     setting2 = "100_000";
                 SelectedRowLimit = setting2;
+
+                // Initialwerte für Slider laden
+                MenuIconSize = _settingsService.GetInt("MenuIconSize", 20);
+                MenuTextSize = _settingsService.GetInt("MenuTextSize", 10);
             }
             catch (Exception ex)
             {
@@ -133,5 +182,4 @@ namespace CSVAssistent.ViewModel
             }
         }
     }
-
 }
