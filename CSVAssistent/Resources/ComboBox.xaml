@@ -55,26 +55,71 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- sichtbarer Combo-Bereich -->
-                        <Border x:Name="Bd"
-                                Grid.Column="0"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
-                                Padding="{TemplateBinding Padding}">
-                            <!-- Anzeige des ausgewählten Items -->
-                            <ContentPresenter
-                                Margin="2,0,0,0"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                RecognizesAccessKey="True"
-                                Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectionBoxItem}"
-                                ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectionBoxItemTemplate}"/>
-                        </Border>
+                        <!-- Linker Bereich als ToggleButton: macht gesamten Textbereich klickbar -->
+                        <ToggleButton x:Name="PART_MainClickArea"
+                                      Grid.Column="0"
+                                      Cursor="Hand"
+                                      Background="{TemplateBinding Background}"
+                                      Foreground="{DynamicResource Brush.Foreground}"
+                                      HorizontalContentAlignment ="Left"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                      ClickMode="Press">
+                            <ToggleButton.Effect>
+                                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.75" Color="Black"/>
+                            </ToggleButton.Effect>
+                            <ToggleButton.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                    <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="Transparent" CornerRadius="10">
+                                                        <TextBlock Foreground="{DynamicResource Brush.ForegroundCommandBar}"
+                                                                   FontSize="{Binding MenuTextSize}"
+                                                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
+                                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Assignment}"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsEnabled" Value="False">
+                                                        <Setter Property="Opacity" Value="0.5"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Cursor" Value="Hand"/>
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource Brush.ForegroundButton}"/>
+                                                        <Setter Property="Background" Value="{DynamicResource Brush.Background}"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ToggleButton.Resources>
+                            <Border x:Name="Bd"
+                                    CornerRadius="4"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="0">
+                                <ContentPresenter
+                                    Margin="2,0,0,0"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    RecognizesAccessKey="True"
+                                    Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectionBoxItem}"
+                                    ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectionBoxItemTemplate}"/>
+                            </Border>
+                        </ToggleButton>
 
                         <!-- Pfeil-Button -->
                         <ToggleButton x:Name="PART_DropDownButton"
+                                      Cursor="Hand"
                                       Grid.Column="1"
                                       Focusable="False"
                                       Margin="-1,0,0,0"
@@ -83,6 +128,9 @@
                                       BorderThickness="1,1,1,1"
                                       IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                       ClickMode="Press">
+                            <ToggleButton.Effect>
+                                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.75" Color="black"/>
+                            </ToggleButton.Effect>
                             <Grid Width="24">
                                 <Path Data="M 0 0 L 4 4 L 8 0 Z"
                                       HorizontalAlignment="Center"

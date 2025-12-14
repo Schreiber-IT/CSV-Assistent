@@ -56,6 +56,18 @@ namespace CSVAssistent.ViewModel
             }
         }
 
+        private int _progressValue;
+        public int ProgressValue
+        {
+            get => _progressValue;
+            set
+            {
+                if (_progressValue == value) return;
+                _progressValue = value;
+                OnPropertyChanged();
+            }
+        }
+
         private int _menutextsize;
         public int MenuTextSize
         {
@@ -68,7 +80,7 @@ namespace CSVAssistent.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        
         private bool _exportReady;
         public bool ExportReady
         {
@@ -602,15 +614,79 @@ namespace CSVAssistent.ViewModel
             }
         }
 
-        private void AddFolder()
+        // Hilfsmethode: baut FileEntry im Hintergrund
+private FileEntry BuildFileEntry(string fullPath)
+{
+    // I/O im Hintergrund
+    var lines = CountLines(fullPath);
+    var name = Path.GetFileName(fullPath);
+    var separator = string.Empty;
+
+    var firstLine = System.IO.File.ReadLines(fullPath).FirstOrDefault();
+    if (firstLine != null)
+    {
+        var del = CsvParsingHelper.DetectDelimiter(firstLine);
+        separator = del.ToString();
+    }
+
+    var entry = new FileEntry
+    {
+        FullPath = fullPath,
+        Name = name,
+        Lines = lines,
+        Separator = separator
+    };
+    entry.SetHash();
+    return entry;
+}
+
+        private async Task AddFolderAsync()
         {
             try
             {
                 var folder = _dialogService.OpenFolder();
-                if (folder == null) return;
-                if (!Directory.Exists(folder)) return;
-                foreach (var file in Directory.EnumerateFiles(folder, "*.csv"))
-                    AddFileEntry(file);
+                if (folder == null || !Directory.Exists(folder)) return;
+
+                var folderInfo = new DirectoryInfo(folder);
+                var csvFiles = folderInfo.GetFiles("*.csv", SearchOption.TopDirectoryOnly);
+                var totalFiles = csvFiles.Length;
+                if (totalFiles == 0)
+                {
+                    ProgressValue = 0;
+                    return;
+                }
+
+                ProgressValue = 0;
+
+                int count = 0;
+                foreach (var file in csvFiles)
+                {
+                    // Baue das FileEntry im Hintergrund
+                    var entry = await Task.Run(() => BuildFileEntry(file.FullName));
+
+                    // Füge minimal auf dem UI-Thread hinzu
+                    await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        if (!Files.Any(f => f.FullPath == entry.FullPath))
+                        {
+                            Files.Add(entry);
+                        }
+                    }, System.Windows.Threading.DispatcherPriority.Background);
+
+                    count++;
+                    var progress = (int)((count / (double)totalFiles) * 100);
+
+                    // Fortschritt aktualisieren ohne Blockieren
+                    await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        ProgressValue = progress;
+                    }, System.Windows.Threading.DispatcherPriority.Background);
+
+                    // UI Rendering ermöglichen
+                    await Task.Yield();
+                }
+
+                ProgressValue = 0;
                 ScanAllFiles();
             }
             catch (DirectoryNotFoundException ex)
@@ -629,6 +705,12 @@ namespace CSVAssistent.ViewModel
                     showToUser: true,
                     isExpected: false);
             }
+        }
+
+        // Command auf neue async-Methode umstellen
+        private async void AddFolder()
+        {
+            await AddFolderAsync();
         }
 
         private void AddFileEntry(string fullPath)
@@ -724,12 +806,18 @@ namespace CSVAssistent.ViewModel
         {
             try
             {
-                var action = _settingsService.GetString(AppSettingsViewModel.DoubleClickSettingKey, "DateiInfo");
+                var action = _settingsService.GetString(AppSettingsViewModel.DoubleClickSettingKey, "Viewer");
 
                 switch (action)
                 {
                     case "Zuordnungsliste":
                         OpenAssignment();
+                        break;
+                    case "Viewer_Neu":
+                        ShowFileInfo();
+                        break;
+                    case "FileSplit":
+                        SplitFile();
                         break;
                     default:
                         ShowFileInfo();

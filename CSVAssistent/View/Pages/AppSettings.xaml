@@ -28,6 +28,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Doppelklick Auswahl -->
             <Border BorderThickness="1" BorderBrush="black" 
                 Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
                 Height="80" 
@@ -52,6 +53,7 @@
                 </StackPanel>
             </Border>
 
+            <!-- Zeilenlimit für Viewer -->
             <Border BorderThickness="1" BorderBrush="black" 
                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
                 Height="80" 
@@ -63,14 +65,14 @@
                 </Border.Effect>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="Zeilen-Limit für DateiInfo" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
+                        <TextBlock Text="Zeilen-Limit für Viewer" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
                         <ComboBox ItemsSource="{Binding RowLimit}"
                                   Style="{StaticResource CustomComboBoxStyle}"
                                   SelectedItem="{Binding SelectedRowLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   Height="25" Width="200"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock Text="Wählen Sie aus, ab wann die DateiInfo-Anzeige aus Performancegründen" 
+                        <TextBlock Text="Wählen Sie aus, ab wann der Viewer aus Performancegründen" 
                                    VerticalAlignment="Center" Margin="20 0"
                                    Foreground="{DynamicResource Brush.Foreground}"/>
                         <TextBlock Text="die Daten nicht mehr anzeigen soll!" 
@@ -80,6 +82,7 @@
                 </StackPanel>
             </Border>
 
+            <!-- Theme Auswahl -->
             <Border BorderThickness="1" BorderBrush="black" 
                 Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
                 Height="80" 
@@ -103,6 +106,7 @@
                 </StackPanel>
             </Border>
 
+            <!-- Menu Icon Größe -->
             <Border BorderThickness="1" BorderBrush="black" 
          Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
          Height="80" 
@@ -128,6 +132,7 @@
                 </StackPanel>
             </Border>
 
+            <!-- Menu Text Größe -->
             <Border BorderThickness="1" BorderBrush="black" 
                     Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
                     Height="80" 

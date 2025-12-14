@@ -138,7 +138,9 @@ namespace CSVAssistent.ViewModel
 
             DoubleClickOptions = new ObservableCollection<string>
             {
-                "DateiInfo",
+                "Viewer",
+                "Viewer_Neu",
+                "FileSplit",
                 "Zuordnungsliste"
             };
 
