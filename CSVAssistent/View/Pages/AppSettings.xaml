@@ -65,7 +65,7 @@
                 </Border.Effect>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="Zeilen-Limit für Viewer" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
+                        <TextBlock Text="Zeilen-Limit für Seitenweise Anzeige" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
                         <ComboBox ItemsSource="{Binding RowLimit}"
                                   Style="{StaticResource CustomComboBoxStyle}"
                                   SelectedItem="{Binding SelectedRowLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -75,16 +75,45 @@
                         <TextBlock Text="Wählen Sie aus, ab wann der Viewer aus Performancegründen" 
                                    VerticalAlignment="Center" Margin="20 0"
                                    Foreground="{DynamicResource Brush.Foreground}"/>
-                        <TextBlock Text="die Daten nicht mehr anzeigen soll!" 
+                        <TextBlock Text="Seitenweise anzeigen soll! (kleiner = 1 Seite)" 
                                    VerticalAlignment="Center" Margin="20 0"
                                    Foreground="{DynamicResource Brush.Foreground}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
 
-            <!-- Theme Auswahl -->
+            <!-- Max Zeilen je seite für Viewer -->
             <Border BorderThickness="1" BorderBrush="black" 
                 Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+                Height="80" 
+                CornerRadius="10"
+                Background="{DynamicResource Brush.Background}"
+                Padding="10" Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Max. Zeilen je Seite" HorizontalAlignment="Center" Margin="5" Foreground="{DynamicResource Brush.Foreground}"></TextBlock>
+                        <ComboBox ItemsSource="{Binding MaxRows}"
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  SelectedItem="{Binding SelectedMaxRows, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Height="25" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="Wählen Sie aus, wieviel Zeilen je Seite angezeigt werden sollen." 
+                                   VerticalAlignment="Center" Margin="20 0"
+                                   Foreground="{DynamicResource Brush.Foreground}"/>
+                        <TextBlock Text="wenn die Seitenweise Anzeige aktiviert ist!" 
+                                   VerticalAlignment="Center" Margin="20 0"
+                                   Foreground="{DynamicResource Brush.Foreground}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            
+            <!-- Theme Auswahl -->
+            <Border BorderThickness="1" BorderBrush="black" 
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
                 Height="80" 
                 CornerRadius="10"
                 Background="{DynamicResource Brush.Background}"
@@ -108,7 +137,7 @@
 
             <!-- Menu Icon Größe -->
             <Border BorderThickness="1" BorderBrush="black" 
-         Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
+         Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
          Height="80" 
          CornerRadius="10"
          Background="{DynamicResource Brush.Background}"
@@ -134,7 +163,7 @@
 
             <!-- Menu Text Größe -->
             <Border BorderThickness="1" BorderBrush="black" 
-                    Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
+                    Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"
                     Height="80" 
                     CornerRadius="10"
                     Background="{DynamicResource Brush.Background}"

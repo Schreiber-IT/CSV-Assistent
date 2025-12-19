@@ -16,5 +16,12 @@
                     BlurRadius="12"
                     ShadowDepth="0"
                     RenderingBias="Performance"/>
-    
+
+
+    <DropShadowEffect x:Key="WindowShadow" 
+                      BlurRadius="5" 
+                      Color="Black" 
+                      Opacity="0.75" 
+                      RenderingBias="Performance"
+                      ShadowDepth="4"/>
 </ResourceDictionary>

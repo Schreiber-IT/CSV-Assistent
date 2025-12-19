@@ -36,6 +36,7 @@ namespace CSVAssistent.ViewModel
         private readonly SettingsDialogViewModel _settingsDialogViewModel;
         private readonly HelpViewModel _helpViewModel;
         private readonly FileInfoViewModel _fileInfoViewModel;
+        private readonly ViewerViewModel _viewerViewModel;
         public AssignmentViewModel _assignmentViewModel { get; }
         private readonly SplitViewModel _splitViewModel;
 
@@ -173,40 +174,33 @@ namespace CSVAssistent.ViewModel
             _themeService = ServiceLocator.ThemeService;
             _assignmentService = ServiceLocator.ColumnAssignmentService;
 
-            _infoDialogViewModel = new InfoDialogViewModel();
-            InfoDialogCommand = new RelayCommand(_ => OpenInfoDialog());
-
-            _settingsDialogViewModel = new SettingsDialogViewModel();
-            SettingsDialogCommand = new RelayCommand(_ => OpenSettingsDialog());
-
-            // Live-Update: auf Änderungen im AppSettings-VM reagieren
-            _settingsDialogViewModel.AppSettingsViewModel.PropertyChanged += AppSettings_PropertyChanged;
 
             _helpViewModel = new HelpViewModel();
-            HelpCommand = new RelayCommand(_ => ShowHelp());
-
+            _infoDialogViewModel = new InfoDialogViewModel();
+            _settingsDialogViewModel = new SettingsDialogViewModel();
             _fileInfoViewModel = new FileInfoViewModel();
-            OpenFileInfoCommand = new RelayCommand(_ => ShowFileInfo(), _ => SelectedFile != null);
-
             _splitViewModel = new SplitViewModel();
-            SplitFileCommand = new RelayCommand(_ => SplitFile(), _ => SelectedFile != null);
-            
+            _viewerViewModel = new ViewerViewModel();
             _assignmentViewModel = new AssignmentViewModel(_assignmentService);
-            _assignmentViewModel.AssignmentsChanged += AssignmentViewModel_AssignmentsChanged;
+
+            InfoDialogCommand = new RelayCommand(_ => OpenInfoDialog());
+            SettingsDialogCommand = new RelayCommand(_ => OpenSettingsDialog());
+            HelpCommand = new RelayCommand(_ => ShowHelp());
+            OpenFileInfoCommand = new RelayCommand(_ => ShowFileInfo(), _ => SelectedFile != null);
+            SplitFileCommand = new RelayCommand(_ => SplitFile(), _ => SelectedFile != null);
             OpenAssignmentCommand = new RelayCommand(_ => OpenAssignment(), _ => Files.Count >= 0);
-
             HandleDoubleClickCommand = new RelayCommand(_ => HandleDoubleClick(), _ => SelectedFile != null);
-
             ChangeThemeCommand = new RelayCommand(_ => ChangeTheme());
-
             DeleteFileCommand = new RelayCommand(_ => DeleteFile(), _ => SelectedFile != null);
             DeleteAllFilesCommand = new RelayCommand(_ => DeleteAllFiles(), _ => Files.Count >= 1);
             ScanAllFilesCommand = new RelayCommand(_ => ScanAllFiles(), _ => Files.Count >= 1);
             ExportDataCommand = new RelayCommand(_ => Export(), _ => ExportReady == true);
             AddFilesDropCommand = new RelayCommand(p => AddFilesFromDrop(p), p => p is IEnumerable<string>);
-
             AddFileCommand = new RelayCommand(_ => AddSingleFile());
             AddFolderCommand = new RelayCommand(_ => AddFolder());
+
+            _settingsDialogViewModel.AppSettingsViewModel.PropertyChanged += AppSettings_PropertyChanged;
+            _assignmentViewModel.AssignmentsChanged += AssignmentViewModel_AssignmentsChanged;
 
             LoadSettings();
         }
@@ -615,30 +609,30 @@ namespace CSVAssistent.ViewModel
         }
 
         // Hilfsmethode: baut FileEntry im Hintergrund
-private FileEntry BuildFileEntry(string fullPath)
-{
-    // I/O im Hintergrund
-    var lines = CountLines(fullPath);
-    var name = Path.GetFileName(fullPath);
-    var separator = string.Empty;
+        private FileEntry BuildFileEntry(string fullPath)
+        {
+            // I/O im Hintergrund
+            var lines = CountLines(fullPath);
+            var name = Path.GetFileName(fullPath);
+            var separator = string.Empty;
 
-    var firstLine = System.IO.File.ReadLines(fullPath).FirstOrDefault();
-    if (firstLine != null)
-    {
-        var del = CsvParsingHelper.DetectDelimiter(firstLine);
-        separator = del.ToString();
-    }
+            var firstLine = System.IO.File.ReadLines(fullPath).FirstOrDefault();
+            if (firstLine != null)
+            {
+                var del = CsvParsingHelper.DetectDelimiter(firstLine);
+                separator = del.ToString();
+            }
 
-    var entry = new FileEntry
-    {
-        FullPath = fullPath,
-        Name = name,
-        Lines = lines,
-        Separator = separator
-    };
-    entry.SetHash();
-    return entry;
-}
+            var entry = new FileEntry
+            {
+                FullPath = fullPath,
+                Name = name,
+                Lines = lines,
+                Separator = separator
+            };
+            entry.SetHash();
+            return entry;
+        }
 
         private async Task AddFolderAsync()
         {
@@ -801,6 +795,28 @@ private FileEntry BuildFileEntry(string fullPath)
                     isExpected: false);
             }
         }
+        private async void Viewer()
+        {
+            try
+            {
+                var file = SelectedFile;
+                if (file == null) return;
+                FooterInfo = "Datei wird geladen!";
+                await _viewerViewModel.Load(file);
+                _windowService.Show(_viewerViewModel);
+                ScanAllFiles();
+                FooterInfo = "";
+            }
+            catch (Exception ex)
+            {
+                _errorService.HandleException(
+                    ex,
+                    context: "Viewer, MainWindow",
+                    showToUser: true,
+                    isExpected: false);
+            }
+
+        }
 
         private void HandleDoubleClick()
         {
@@ -813,8 +829,8 @@ private FileEntry BuildFileEntry(string fullPath)
                     case "Zuordnungsliste":
                         OpenAssignment();
                         break;
-                    case "Viewer_Neu":
-                        ShowFileInfo();
+                    case "Viewer":
+                        Viewer();
                         break;
                     case "FileSplit":
                         SplitFile();

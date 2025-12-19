@@ -1,4 +1,4 @@
-﻿<core:BaseWindow x:Class="CSVAssistent.View.SettingsDialog"
+﻿<core:BaseWindow x:Class="CSVAssistent.View.Viewer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,18 +12,13 @@
         WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
         MinHeight="400" MinWidth="400"
-        WindowState="{Binding WindowState }"
-        Closing="BaseWindow_Closing" 
-        ScrollViewer.CanContentScroll="True"
-        ScrollViewer.VerticalScrollBarVisibility="Visible"
-        ScrollViewer.IsDeferredScrollingEnabled="True"
         StateChanged="Window_StateChanged"
-        Title="Einstellungen" Height="450" Width="800">
+        Title="Split" Height="500" Width="1000">
     <Border CornerRadius="25 25 15 15" 
             Background="{DynamicResource Brush.Background}" 
-            BorderBrush="Black" BorderThickness="1"
+            Margin="5" 
             Effect="{StaticResource WindowShadow}"
-            Margin="20 40">
+            BorderThickness="1" BorderBrush="Black">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -34,6 +29,7 @@
                 <RowDefinition Height="35" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
@@ -48,13 +44,14 @@
                 <DockPanel LastChildFill="True" VerticalAlignment="Center" Margin="10,0,0,0">
                     <!-- Rechts: Buttons nebeneinander -->
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+
                         <Border CornerRadius="15"
         Background="{DynamicResource Brush.CommandMaximize}"
         Width="22"
         Height="22"
         BorderThickness="1"
         BorderBrush="Black"
-        Margin="0,0,10,0">
+        Margin="0,0,10,0" Cursor="Hand">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Setter Property="Effect" Value="{x:Null}" />
@@ -72,7 +69,7 @@
             Width="16"
             Height="16"
             Background="Transparent"
-            BorderThickness="0" Cursor="Hand">
+            BorderThickness="0">
                                 <Button.Style>
                                     <Style TargetType="Button"
                    BasedOn="{StaticResource NoHoverIconButton}">
@@ -81,7 +78,7 @@
                         Value="{x:Static sys:SystemCommands.MaximizeWindowCommand}" />
                                         <Setter Property="Content">
                                             <Setter.Value>
-                                                <Image Source="pack://application:,,,/Images/maximize.png" />
+                                                <Image Source="/Images/maximize.png" />
                                             </Setter.Value>
                                         </Setter>
 
@@ -96,7 +93,7 @@
                                                 <!-- Optional: anderes Icon im maximierten Zustand -->
                                                 <Setter Property="Content">
                                                     <Setter.Value>
-                                                        <Image Source="pack://application:,,,/Images/maximize.png" />
+                                                        <Image Source="/Images/maximize.png" />
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
@@ -119,15 +116,15 @@
                                 </Style>
                             </Border.Style>
                             <Button x:Name="BTClose" Width="16" Height="16" Command="{x:Static sys:SystemCommands.CloseWindowCommand}" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverIconButton}">
-                                <Image Source="pack://application:,,,/Images/close.png" Cursor="Hand"/>
+                                <Image Source="/Images/close.png" Cursor="Hand"/>
                             </Button>
                         </Border>
                     </StackPanel>
 
                     <!-- Links: füllt den gesamten restlichen Platz -->
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
-                        <Image Source="pack://application:,,,/Images/code.png" Width="20" Height="20" VerticalAlignment="Center"/>
-                        <TextBlock Text="Einstellungen" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource Brush.ForegroundCommandBar}"/>
+                        <Image Source="/Images/code.png" Width="20" Height="20" VerticalAlignment="Center"/>
+                        <TextBlock Text="Viewer" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource Brush.ForegroundCommandBar}"/>
                     </StackPanel>
                 </DockPanel>
             </Border>
@@ -135,77 +132,86 @@
             <!--Toolbar-->
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="{DynamicResource Brush.BackgroundToolBar}" BorderBrush="Black" BorderThickness="0" Padding="5 0">
                 <StackPanel Orientation="Horizontal">
-                    <!--AppSettings-->
-                    <Button Command="{Binding NavigateAppSettingsCommand}" x:Name="BTAppSettings" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.ButtonCategoryE}" HorizontalAlignment="Left" Cursor="Hand">
-                        <Button.ToolTip>App-Einstellungen</Button.ToolTip>
+                    <!--Home-->
+                    <Button x:Name="BTAbort" Width="30" Padding="25 5" Margin="5" 
+                            Background="{DynamicResource Brush.CommandExit}" 
+                            Command="{Binding CancelCommand}"
+                            IsEnabled="{Binding IsBusy}"
+                            HorizontalAlignment="Left" Cursor="Hand">
+                        <Button.ToolTip>Abbrechen</Button.ToolTip>
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Effect" Value="{x:Null}"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTAppSettings}" Value="True">
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=BTAbort}" Value="True">
                                         <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="pack://application:,,,/Images/settings.png"/>
+                            <ImageBrush ImageSource="/Images/close.png"/>
                         </Button.OpacityMask>
                     </Button>
-
-                    <!--Fehlerliste-->
-                    <Button Command="{Binding NavigateErrorListCommand}" x:Name="ErrorList" Width="30" Padding="25 5" Margin="5" Background="{DynamicResource Brush.CommandExit}" HorizontalAlignment="Left" Cursor="Hand">
-                        <Button.ToolTip>Fehler-Logs</Button.ToolTip>
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Effect" Value="{x:Null}"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=ErrorList}" Value="True">
-                                        <Setter Property="Effect" Value="{StaticResource PillShadowPressed}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.OpacityMask>
-                            <ImageBrush ImageSource="pack://application:,,,/Images/errorinfo.png"/>
-                        </Button.OpacityMask>
-                    </Button>
-
                 </StackPanel>
             </Border>
 
             <!-- Hauptbereich -->
-            <Border Grid.Row="2" Grid.Column="0" Margin="0" Grid.ColumnSpan="3">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <ContentControl Content="{Binding CurrentViewModel}" ScrollViewer.CanContentScroll="True" />
-                </Grid>
+            <Border Grid.Row="2" Grid.Column="0" 
+                    Grid.ColumnSpan="3" 
+                    Margin="10" 
+                    Background="{DynamicResource Brush.FileWindowBackground}">
+                <DataGrid ItemsSource="{Binding PageView}"
+                          x:Name="DataGridViewer"
+                          AutoGenerateColumns="True"
+                          Background="{DynamicResource Brush.FileWindowBackground}"
+                          Foreground="{DynamicResource Brush.FileWindowBackground}"
+                          IsReadOnly="True"/>
             </Border>
 
-            <!-- Footer -->
-            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="0 1 0 0" BorderBrush="black" Background="{DynamicResource Brush.BackgroundCommandBar}" CornerRadius="0 0 10 10">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" Background="transparent">
-                        <Label x:Name="footer1" Foreground="White"/>
-                    </Border>
-                    <Border Grid.Column="1" Background="transparent">
-                        <Label x:Name="footer2" Foreground="White"/>
-                    </Border>
-                    <Border Grid.Column="2" Background="transparent">
-                        <Label x:Name="footer3" Foreground="White" />
-                    </Border>
-                    <Border Grid.Column="3" Background="transparent">
-                        <Label x:Name="footer4" Foreground="White"/>
-                    </Border>
-                </Grid>
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,5,0,5"
+                        Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+                <Button Command="{Binding FirstPageCommand}" IsEnabled="{Binding IsPagingEnabled}" BorderThickness="0" Background="{DynamicResource Brush.ImageButton}" Width="30" Cursor="Hand">
+                    <Button.OpacityMask>
+                        <ImageBrush ImageSource="pack://application:,,,/Images/arrowleftdouble.png"/>
+                    </Button.OpacityMask>
+                </Button>
+                <Button Command="{Binding PrevPageCommand}"  IsEnabled="{Binding IsPagingEnabled}" BorderThickness="0" Background="{DynamicResource Brush.ImageButton}" Width="30" Cursor="Hand">
+                    <Button.OpacityMask>
+                        <ImageBrush ImageSource="pack://application:,,,/Images/arrowleft.png"/>
+                    </Button.OpacityMask>
+                </Button>
+                <TextBlock Text="{Binding CurrentPageIndex}" Margin="20 0 0 0" Foreground="{DynamicResource Brush.Foreground}" FontSize="20"/>
+                <TextBlock Text="/" Margin="5 0" Foreground="{DynamicResource Brush.Foreground}" FontSize="20"/>
+                <TextBlock Text="{Binding TotalPages}" Margin="0 0 20 0" Foreground="{DynamicResource Brush.Foreground}" FontSize="20"/>
+                <Button Command="{Binding NextPageCommand}"  IsEnabled="{Binding IsPagingEnabled}" BorderThickness="0" Background="{DynamicResource Brush.ImageButton}" Width="30" Cursor="Hand">
+                    <Button.OpacityMask>
+                        <ImageBrush ImageSource="pack://application:,,,/Images/arrowright.png"/>
+                    </Button.OpacityMask>
+                </Button>
+                <Button Command="{Binding LastPageCommand}"  IsEnabled="{Binding IsPagingEnabled}" BorderThickness="0" Background="{DynamicResource Brush.ImageButton}" Width="30" Cursor="Hand">
+                    <Button.OpacityMask>
+                        <ImageBrush ImageSource="pack://application:,,,/Images/arrowrightdouble.png"/>
+                    </Button.OpacityMask>
+                </Button>
+            </StackPanel>
+
+            <Border Grid.Row="4" Grid.Column="0" Background="transparent" Padding="5 0" BorderThickness="0 1 0 0" BorderBrush="Black">
+                <Label x:Name="footer1"
+                               Foreground="{DynamicResource Brush.Foreground}"
+                               Content=""/>
+            </Border>
+            <Border Grid.Row="4"  Grid.Column="1" Background="transparent" Padding="5 0" BorderThickness="0 1 0 0" BorderBrush="Black">
+                <Label x:Name="footer2"
+                               Foreground="{DynamicResource Brush.Foreground}"
+                               Content=""/>
+            </Border>
+            <Border Grid.Row="4"  Grid.Column="2" Background="transparent" Padding="15 0" BorderThickness="0 1 0 0" BorderBrush="Black">
+                <Label x:Name="footer3"
+                               Foreground="{DynamicResource Brush.Foreground}"
+                               Content=""/>
             </Border>
         </Grid>
     </Border>

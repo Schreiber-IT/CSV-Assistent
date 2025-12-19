@@ -14,14 +14,16 @@ namespace CSVAssistent.ViewModel
     {
         public const string DoubleClickSettingKey = "DoubleClickSelection";
         public const string RowLimitKey = "RowLimit";
+        public const string MaxRowKey = "MaxRows";
 
         private readonly IErrorService _errorService;
         private readonly ISettingsService _settingsService;
         private readonly IWindowService _windowService;
         private readonly IThemeService _themeService;
-
+         
         public ObservableCollection<string> DoubleClickOptions { get; }
         public ObservableCollection<string> RowLimit { get; }
+        public ObservableCollection<string> MaxRows { get; }
         public ObservableCollection<string> ThemeOptions { get; }
 
         private string _selectedDbClick = "DateiInfo";
@@ -39,6 +41,27 @@ namespace CSVAssistent.ViewModel
                     catch (Exception ex)
                     {
                         _errorService.HandleException(ex, "AppSettings-SetDoubleClick", true, false);
+                    }
+                }
+            }
+        }
+        
+
+        private string _selectedMaxRows = "100_000";
+        public string SelectedMaxRows
+        {
+            get => _selectedMaxRows;
+            set
+            {
+                if (SetProperty(ref _selectedMaxRows, value))
+                {
+                    try
+                    {
+                        _settingsService.SetString(MaxRowKey, value);
+                    }
+                    catch (Exception ex)
+                    {
+                        _errorService.HandleException(ex, "AppSettings-SelectedMaxRows", true, false);
                     }
                 }
             }
@@ -144,6 +167,16 @@ namespace CSVAssistent.ViewModel
                 "Zuordnungsliste"
             };
 
+            MaxRows = new ObservableCollection<string>
+            {
+                "10_000",
+                "50_000",
+                "100_000",
+                "250_000",
+                "500_000",
+                "1_000_000"
+            };
+
             RowLimit = new ObservableCollection<string>
             {
                 "100_000",
@@ -164,15 +197,21 @@ namespace CSVAssistent.ViewModel
         {
             try
             {
-                var setting = _settingsService.GetString(DoubleClickSettingKey, "DateiInfo");
+                var setting = _settingsService.GetString(DoubleClickSettingKey, "Viewer");
                 if (!DoubleClickOptions.Contains(setting))
-                    setting = "DateiInfo";
+                    setting = "Viewer";
                 SelectedDBClick = setting;
 
                 var setting2 = _settingsService.GetString(RowLimitKey, "100_000");
                 if (!RowLimit.Contains(setting2))
                     setting2 = "100_000";
                 SelectedRowLimit = setting2;
+
+                var setting3 = _settingsService.GetString(MaxRowKey, "100_000");
+                if (!MaxRows.Contains(setting3))
+                    setting3 = "100_000";
+                SelectedMaxRows = setting3;
+              
 
                 // Initialwerte für Slider laden
                 MenuIconSize = _settingsService.GetInt("MenuIconSize", 20);

@@ -13,9 +13,9 @@
         xmlns:converters="clr-namespace:CSVAssistent.Converter"
         mc:Ignorable="d"
         Background="Transparent"
-        WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
-        MinHeight="400" MinWidth="400"
+        MinHeight="400" MinWidth="550"
         WindowState="{Binding WindowState}"
         Closing="BaseWindow_Closing" 
         StateChanged="Window_StateChanged"
@@ -23,10 +23,14 @@
     <core:BaseWindow.Resources>
         <converters:StatusToImageConverter x:Key="StatusToImageConverter"/>
     </core:BaseWindow.Resources>
-    <Border CornerRadius="25 25 15 15" Margin="5"  Background="{DynamicResource Brush.Background}">
+    <Border CornerRadius="25 25 15 15" 
+            Margin="5" 
+            BorderBrush="Black" BorderThickness="1" 
+            Effect="{StaticResource WindowShadow}"
+            Background="{DynamicResource Brush.Background}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" MinWidth="250"/>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
@@ -38,7 +42,13 @@
             </Grid.RowDefinitions>
 
             <!--Commandbereich-->
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Height="35" Background="{DynamicResource Brush.BackgroundCommandBar}" BorderBrush="Black" BorderThickness="1" CornerRadius="15 15 0 0" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseDown="Border_MouseDown">
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
+                    Height="35" 
+                    Background="{DynamicResource Brush.BackgroundCommandBar}" 
+                    BorderBrush="Black" BorderThickness="0 0 0 1" 
+                    CornerRadius="15 15 0 0" 
+                    MouseLeftButtonDown="Border_MouseLeftButtonDown" 
+                    MouseDown="Border_MouseDown">
                 <DockPanel LastChildFill="True" VerticalAlignment="Center" Margin="10,0,0,0">
                     <!-- Rechts: Buttons nebeneinander -->
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
@@ -152,7 +162,7 @@
                     </StackPanel>
 
                     <!-- Links: füllt den gesamten restlichen Platz -->
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center" Width="auto">
                         <Image Source="pack://application:,,,/Images/code.png" Width="20" Height="20" VerticalAlignment="Center"/>
                         <TextBlock Text="CSV-Assistent" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource Brush.ForegroundCommandBar}"/>
                     </StackPanel>
@@ -172,7 +182,7 @@
                     <TabItem Header="Datei">
 
                         <StackPanel Orientation="Horizontal">
-                            
+
                             <Button Content="Hinzufügen" 
                                     Command="{Binding AddFileCommand}" 
                                     Tag="pack://application:,,,/CSVAssistent;component/Images/loadfile.png" 
@@ -212,25 +222,25 @@
                     </TabItem>
                     <TabItem Header="Bearbeiten">
                         <StackPanel Orientation="Horizontal">
-                            
+
                             <Button Content="Viewer" 
                                     Command="{Binding OpenFileInfoCommand}"
                                     CommandParameter="{Binding SelectedFile}"
                                     Tag="pack://application:,,,/CSVAssistent;component/Images/fileinfo.png"
                                     ToolTip="Dateiinhalt anschauen"/>
-                            
+
                             <Button Content="Zuweisung" 
                                     Command="{Binding OpenAssignmentCommand}" 
                                     CommandParameter="{Binding SelectedFile}"
                                     Tag="pack://application:,,,/CSVAssistent;component/Images/zuordnung.png"
                                     ToolTip="Zentrale Spalten zuweisen"/>
-                            
+
                             <Button Content="Split" 
                                     Command="{Binding SplitFileCommand}" 
                                     CommandParameter="{Binding SelectedFile}"
                                     Tag="pack://application:,,,/CSVAssistent;component/Images/cut.png"
                                     ToolTip="Datei in mehrere Dateien aufteilen"/>
-                            
+
                         </StackPanel>
                     </TabItem>
                     <TabItem Header="Export">
@@ -313,7 +323,7 @@
             <GridSplitter Grid.Row="2" Grid.Column="1" Width="5" Background="{DynamicResource Brush.Assignment}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowsPreview="True"/>
 
             <Border Grid.Row="2" Grid.Column="2">
-                <pages:FileDetailView DataContext="{Binding SelectedFile}"/>
+                <pages:FileDetailView DataContext="{Binding SelectedFile}" />
             </Border>
 
             <!-- Footer -->

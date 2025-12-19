@@ -15,10 +15,11 @@
         MinHeight="400" MinWidth="400"
         Title="About" Height="600" Width="600">
 
-    <Border CornerRadius="25 25 15 15" Background="{DynamicResource Brush.Background}" Margin="10">
-        <Border.Effect>
-            <DropShadowEffect Color="white" BlurRadius="15" ShadowDepth="0" Opacity="0.5"/>
-        </Border.Effect>
+    <Border CornerRadius="25 25 15 15" 
+            Background="{DynamicResource Brush.Background}" 
+            BorderBrush="Black" BorderThickness="1"
+            Effect="{StaticResource WindowShadow}"            
+            Margin="10">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -30,7 +31,12 @@
             </Grid.RowDefinitions>
 
             <!--Commandbereich-->
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Height="35" Background="{DynamicResource Brush.BackgroundCommandBar}" BorderBrush="Black" BorderThickness="1" CornerRadius="15 15 0 0" MouseDown="Border_MouseDown">
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" 
+                    Height="35" 
+                    Background="{DynamicResource Brush.BackgroundCommandBar}" 
+                    BorderBrush="Black" BorderThickness="0 0 0 1" 
+                    CornerRadius="15 15 0 0" 
+                    MouseDown="Border_MouseDown">
                 <DockPanel LastChildFill="True" VerticalAlignment="Center" Margin="10,0,0,0">
                     <!-- Rechts: Buttons nebeneinander -->
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">

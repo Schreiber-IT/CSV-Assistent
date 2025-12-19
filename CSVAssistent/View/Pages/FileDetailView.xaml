@@ -6,110 +6,115 @@
              xmlns:local="clr-namespace:CSVAssistent.View.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <!--Dateiname-->
-        <TextBlock Text="Dateiname:" 
-                   Grid.Row="0" Grid.Column="0"
-                   FontSize="14"
-                   HorizontalAlignment="Center" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <TextBlock Text="{Binding Name}" 
-                   Grid.Row="0" Grid.Column="1"
-                   FontSize="14"
-                   HorizontalAlignment="Left" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <!--Pfad-->
-        <TextBlock Text="Pfad:" 
-                   Grid.Row="1" Grid.Column="0"
-                   FontSize="14"
-                   HorizontalAlignment="Center" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <TextBlock Text="{Binding FullPath}" 
-                   Grid.Row="1" Grid.Column="1"
-                   FontSize="14"
-                   HorizontalAlignment="Left" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <!--Zeilenanzahl-->
-        <TextBlock Text="Anzahl Zeilen:" 
-                   Grid.Row="2" Grid.Column="0"
-                   FontSize="14"
-                   HorizontalAlignment="Center" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <TextBlock Text="{Binding FormattedLines}" 
-                   Grid.Row="2" Grid.Column="1"
-                   FontSize="14"
-                   HorizontalAlignment="Left" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <!--Separator-->
-        <TextBlock Text="Separator:" 
-                   Grid.Row="3" Grid.Column="0"
-                   FontSize="14"
-                   HorizontalAlignment="Center" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <TextBlock Text="{Binding Separator}" 
-                   Grid.Row="3" Grid.Column="1"
-                   FontSize="14"
-                   HorizontalAlignment="Left" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <!--FileHash-->
-        <TextBlock Text="FileHash:" 
-                   Grid.Row="4" Grid.Column="0"
-                   FontSize="14"
-                   HorizontalAlignment="Center" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <TextBlock Text="{Binding FileHash}" 
-                   Grid.Row="4" Grid.Column="1"
-                   FontSize="14"
-                   HorizontalAlignment="Left" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <!--Unbekannt-->
-        <TextBlock Text="---:" 
-                   Grid.Row="5" Grid.Column="0"
-                   FontSize="14"
-                   HorizontalAlignment="Center" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <TextBlock Text="{Binding FullPath}" 
-                   Grid.Row="5" Grid.Column="1"
-                   FontSize="14"
-                   HorizontalAlignment="Left" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <!--Unbekannt-->
-        <TextBlock Text="---:" 
-                   Grid.Row="6" Grid.Column="0"
-                   FontSize="14"
-                   HorizontalAlignment="Center" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <TextBlock Text="{Binding FullPath}" 
-                   Grid.Row="6" Grid.Column="1"
-                   FontSize="14"
-                   HorizontalAlignment="Left" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <!--Unbekannt-->
-        <TextBlock Text="---:" 
-                   Grid.Row="7" Grid.Column="0"
-                   FontSize="14"
-                   HorizontalAlignment="Center" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
-        <TextBlock Text="{Binding FullPath}" 
-                   Grid.Row="7" Grid.Column="1"
-                   FontSize="14"
-                   HorizontalAlignment="Left" Margin="10"
-                   Foreground="{DynamicResource Brush.Foreground}"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto"
+                  Margin="5 0"
+                  CanContentScroll="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--Dateiname-->
+            <TextBlock Text="Dateiname:" 
+                       Grid.Row="0" Grid.Column="0"
+                       FontSize="14"
+                       HorizontalAlignment="Center" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <TextBlock Text="{Binding Name}" 
+                       Grid.Row="0" Grid.Column="1"
+                       FontSize="14"
+                       HorizontalAlignment="Left" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <!--Pfad-->
+            <TextBlock Text="Pfad:" 
+                       Grid.Row="1" Grid.Column="0"
+                       FontSize="14"
+                       HorizontalAlignment="Center" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <TextBlock Text="{Binding FullPath}" 
+                       Grid.Row="1" Grid.Column="1"
+                       FontSize="14"
+                       HorizontalAlignment="Left" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <!--Zeilenanzahl-->
+            <TextBlock Text="Anzahl Zeilen:" 
+                       Grid.Row="2" Grid.Column="0"
+                       FontSize="14"
+                       HorizontalAlignment="Center" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <TextBlock Text="{Binding FormattedLines}" 
+                       Grid.Row="2" Grid.Column="1"
+                       FontSize="14"
+                       HorizontalAlignment="Left" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <!--Separator-->
+            <TextBlock Text="Separator:" 
+                       Grid.Row="3" Grid.Column="0"
+                       FontSize="14"
+                       HorizontalAlignment="Center" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <TextBlock Text="{Binding Separator}" 
+                       Grid.Row="3" Grid.Column="1"
+                       FontSize="14"
+                       HorizontalAlignment="Left" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <!--FileHash-->
+            <TextBlock Text="FileHash:" 
+                       Grid.Row="4" Grid.Column="0"
+                       FontSize="14"
+                       HorizontalAlignment="Center" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <TextBlock Text="{Binding FileHash}" 
+                       Grid.Row="4" Grid.Column="1"
+                       FontSize="14"
+                       HorizontalAlignment="Left" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <!--Unbekannt-->
+            <TextBlock Text="---:" 
+                       Grid.Row="5" Grid.Column="0"
+                       FontSize="14"
+                       HorizontalAlignment="Center" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <TextBlock Text="" 
+                       Grid.Row="5" Grid.Column="1"
+                       FontSize="14"
+                       HorizontalAlignment="Left" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <!--Unbekannt-->
+            <TextBlock Text="---:" 
+                       Grid.Row="6" Grid.Column="0"
+                       FontSize="14"
+                       HorizontalAlignment="Center" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <TextBlock Text="" 
+                       Grid.Row="6" Grid.Column="1"
+                       FontSize="14"
+                       HorizontalAlignment="Left" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <!--Unbekannt-->
+            <TextBlock Text="---:" 
+                       Grid.Row="7" Grid.Column="0"
+                       FontSize="14"
+                       HorizontalAlignment="Center" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
+            <TextBlock Text="" 
+                       Grid.Row="7" Grid.Column="1"
+                       FontSize="14"
+                       HorizontalAlignment="Left" Margin="10"
+                       Foreground="{DynamicResource Brush.Foreground}"/>
 
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
